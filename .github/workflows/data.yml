@@ -1,6 +1,9 @@
 name: update data
 
-on: push
+on: push:
+    schedule:
+      - cron: '0 23 * * *'
+      # 国际标准时间23点（北京时间+8，即早上7点）
 
 jobs:
   build:
@@ -21,4 +24,4 @@ jobs:
           clean: false
           force: false
           # clean-exclude: true
-          commit-message: update json file by action
+          commit-message: daily update
