@@ -7,11 +7,12 @@ jobs:
     name: update data info files
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: ianwalter/puppeteer-container@v4.0.0
+      # - uses: ianwalter/puppeteer-container@v4.0.0
+      - run: npm install
       - run: npm run start
  
       - uses: JamesIves/github-pages-deploy-action@v4.3.3
