@@ -4,7 +4,7 @@
 
 
 解决闪退，两步到位！
-###### 一、下载(使用以上文件链接，可跳过此步)
+###### 一、官网下载(已搬运，可跳过)
 进入北极熊的slimboxtv[官网](https://slimboxtv.ru)，在x96x4产品页 https://slimboxtv.ru/x96-x4 找到对应ATV版本，下载并解压得到sbx_x96_x4_pro_1000mb_atv_16_4_7.img文件（可能需要vpn）。
 ![Image text](img/slimboxtv.ru_x96-x4_.png)
 
