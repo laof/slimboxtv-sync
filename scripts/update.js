@@ -3,7 +3,7 @@ import { getData } from '../main.js'
 const today = new Date().toLocaleString('zh-cn', { timeZone: 'Asia/Shanghai' })
 
 let table = [
-  '固件信息每天与官网同步一次，当前列表更新于: ' + today,
+  '固件信息每天与官网同步，当前列表更新于: ' + today,
   '| 文件名 | 大小 | 发布日期 |',
   '| ---- | ---- | ---- |'
 ]
