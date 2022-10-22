@@ -17,7 +17,7 @@ fs.mkdir('output', (err) => {
     res.forEach((file) => {
       const { name, url, size, modified } = file
       const mb = (size / 1024 / 1024).toFixed(2) + 'M'
-      table.push(` | [${name}](${url}){target="_blank"} | ${mb} | ${modified} |`)
+      table.push(` | [${name}](${url}) | ${mb} | ${modified} |`)
     })
 
     const view = fs.readFileSync('content/view.md', 'utf-8')
