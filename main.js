@@ -1,7 +1,5 @@
 import puppeteer from 'puppeteer'
 
-const download = 'https://disk.yandex.ru/public/api/download-url'
-
 const palyloadData = {
   hash: 'X7RmxaQDlo32xE7MgGwez/250YHfgd2XGtuj4kLZA/q0ro+8lE56dyOEu6s+ccl/q/J6bpmRyOJonT3VoXnDag==:/sbx_x96_x4_pro_1000mb_aosp_16_4_6.7z',
   sk: 'y4195f637758b945d7772d98905f1af1b'
