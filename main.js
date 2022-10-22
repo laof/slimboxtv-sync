@@ -45,7 +45,7 @@ export async function getData() {
           name: item.name,
           size: item.meta.size,
           payload: encodeURIComponent(body),
-          modified: new Date(date).toLocaleString('zh-cn')
+          modified: getDate(date)
         })
       }
       return arr
