@@ -1,18 +1,9 @@
 import fs from 'fs'
 import { getData } from '../main.js'
-function today() {
-  const date = new Date()
-  const Y = date.getFullYear() + '-'
-  const M = date.getMonth() + 1 + '-'
-  const D = date.getDate() + ' '
-  const h = date.getHours() + ':'
-  const m = date.getMinutes() + ':'
-  const s = date.getSeconds()
-  return Y + M + D + h + m + s
-}
+const today = new Date().toLocaleString('zh-cn', { timeZone: 'Asia/Shanghai' })
 
 let table = [
-  today(),
+  '固件更新于: ' + today,
   '| 文件名 | 大小 | 發佈日期 |',
   '| ---- | ---- | ---- |'
 ]
@@ -25,7 +16,8 @@ fs.mkdir('output', (err) => {
   getData().then((res) => {
     res.forEach((file) => {
       const { name, url, size, modified } = file
-      table.push(` | [${name}](${url}) | ${size} | ${modified} |`)
+      const mb = (size / 1024 / 1024).toFixed(2) + 'M'
+      table.push(` | [${name}](${url}) | ${mb} | ${modified} |`)
     })
 
     const view = fs.readFileSync('content/view.md', 'utf-8')

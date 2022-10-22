@@ -40,11 +40,12 @@ export async function getData() {
           hash: item.path,
           sk: data.environment.sk
         })
+        const date = Number(item.modified + '000')
         arr.push({
           name: item.name,
           size: item.meta.size,
           payload: encodeURIComponent(body),
-          modified: getDate(Number(item.modified + '000'))
+          modified: new Date(date).toLocaleString('zh-cn')
         })
       }
       return arr
