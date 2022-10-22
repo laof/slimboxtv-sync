@@ -12,4 +12,4 @@
 ![Image text](https://raw.githubusercontent.com/laof/x96x4/main/img/holdon.png)
 
 2.打开晶晨刷机工具Aml_Burn_Tool，找到设置->导入镜像，选择解压后的img导入。点击"开始"，进度条跑完，即刷机成功。
-![Image text](https://raw.githubusercontent.com/laof/x96x4/main/img/aml.png)
+![Image text](https://raw.githubusercontent.com/laof/x96x4/main/img/aml-tool.png)
