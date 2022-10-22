@@ -43,7 +43,9 @@ export async function getData() {
           name: item.name,
           size: item.meta.size,
           payload: encodeURIComponent(body),
-          modified: getDate(date)
+          modified: new Date(date).toLocaleString('Zh', {
+            timeZone: 'Asia/Shanghai'
+          })
         })
       }
       return arr
