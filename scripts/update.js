@@ -1,7 +1,6 @@
 import fs from 'fs'
 import { getData } from '../main.js'
-
-function getDate() {
+function today() {
   const date = new Date()
   const Y = date.getFullYear() + '-'
   const M = date.getMonth() + 1 + '-'
@@ -13,7 +12,7 @@ function getDate() {
 }
 
 let table = [
-  getDate(),
+  today(),
   '| 文件名 | 大小 | 發佈日期 |',
   '| ---- | ---- | ---- |'
 ]
@@ -29,10 +28,10 @@ fs.mkdir('output', (err) => {
       table.push(` | [${name}](${url}) | ${size} | ${modified} |`)
     })
 
-    const view = fs.readFileSync('../content/view.md', 'utf-8')
+    const view = fs.readFileSync('content/view.md', 'utf-8')
     const readme = view.replace('<!--files_table-->', table.join('\n'))
 
-    fs.writeFile('../output/data.json', JSON.stringify(res), () => {})
-    fs.writeFile('../output/README.md', readme, () => {})
+    fs.writeFile('output/data.json', JSON.stringify(res), () => {})
+    fs.writeFile('output/README.md', readme, () => {})
   })
 })
