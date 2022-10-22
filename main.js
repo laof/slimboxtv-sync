@@ -1,4 +1,4 @@
-import https from 'https'
+import fs from 'fs'
 import puppeteer from 'puppeteer'
 
 const download = 'https://disk.yandex.ru/public/api/download-url'
@@ -10,10 +10,12 @@ const cc = {
   sk: 'y4195f637758b945d7772d98905f1af1b'
 }
 
-async function getliken() {
-  const browser = await puppeteer.launch({ headless: true })
+async function getData() {
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox']
+  })
   const page = await browser.newPage()
-
   await page.goto('https://disk.yandex.ru/d/VH3yKBEWBc1xyg')
 
   // Extract the results from the page.
@@ -49,7 +51,7 @@ async function getliken() {
       return arr
     }, [])
 
-    const files = [list[0]].map(
+    const files = list.map(
       (item) =>
         fetch('https://disk.yandex.ru/public/api/download-url', {
           method: 'post',
@@ -86,19 +88,27 @@ async function getliken() {
 const url =
   'https://downloader.disk.yandex.ru/disk/35684361fe4fcd8045e7ae9f9ef43b8358b27b97fe2ae06a7d178b202a8d5b3a/6353e2b3/Arlo4ikbYaCSRCfmCwxQEWG7oCVBTRMUPqKBChuzih1mSJ-ITMr4s9ZlPJSFUMKAPE_jKCkuxrBxAsvQccy56A%3D%3D?uid=0&filename=sbx_x96_x4_pro_1000mb_aosp_16_4_6.7z&disposition=attachment&hash=X7RmxaQDlo32xE7MgGwez/250YHfgd2XGtuj4kLZA/q0ro%2B8lE56dyOEu6s%2Bccl/q/J6bpmRyOJonT3VoXnDag%3D%3D%3A/sbx_x96_x4_pro_1000mb_aosp_16_4_6.7z&limit=0&content_type=application%2Fx-7z-compressed&owner_uid=40520828&fsize=755127679&hid=732dfaae3bd762b88c242ed7e4a300b4&media_type=compressed&tknv=v2'
 
-const ddd =
-  'https://s662sas.storage.yandex.net/rdisk/35684361fe4fcd8045e7ae9f9ef43b8358b27b97fe2ae06a7d178b202a8d5b3a/6353e2b3/Arlo4ikbYaCSRCfmCwxQEWG7oCVBTRMUPqKBChuzih1mSJ-ITMr4s9ZlPJSFUMKAPE_jKCkuxrBxAsvQccy56A==?uid=0&filename=sbx_x96_x4_pro_1000mb_aosp_16_4_6.7z&disposition=attachment&hash=X7RmxaQDlo32xE7MgGwez/250YHfgd2XGtuj4kLZA/q0ro%2B8lE56dyOEu6s%2Bccl/q/J6bpmRyOJonT3VoXnDag%3D%3D%3A/sbx_x96_x4_pro_1000mb_aosp_16_4_6.7z&limit=0&content_type=application%2Fx-7z-compressed&owner_uid=40520828&fsize=755127679&hid=732dfaae3bd762b88c242ed7e4a300b4&CkuxrBxAsvQccy56A%3D%3D?uid=0&filename=smedia_type=compressed&tknv=v2&rtoken=IaDTNtCXv5Cc&force_default=no&ycrid=na-12ad299f2706a7a8c7ede41ec59e1b8b-downloader2e&ts=5eb9ebde7d2c0&s=bce829755bc0d3a39eee89f4361393eb36487874f344a210b7d8e6aab3e87a63&pb=U2FsdGVkX19tMTzHb-Q8xinxRHupHwHdt53D0In_GJpguxoyl8U3tVDUyzkd9NVdmg9Kjd5FkhIYHBzgckmOrkLrq_YoRV_m9vuz8wIO6TA'
+async function origin() {
+  const browser = await puppeteer.launch({ headless: true })
+  const page = await browser.newPage()
+  await page.goto(new URL(url).origin)
 
-const lis = [{ url }] || (await getliken())
+  // Extract the results from the page.
+  const links = await page.evaluate(async (download) => {
+    return fetch(download).then((res) => res.url)
+  }, url)
 
-console.log(lis[0].url)
-if (Array.isArray(lis) && lis.length) {
-  const resp = https.get(lis[0].url, (res) => {
-    res.on('end', () => {
-      console.log(res.headers)
-    })
-  })
-  resp.on('error', (err) => {
-    console.log(err.message)
-  })
+  await browser.close()
+
+  return links
 }
+
+// origin().then((res) => {
+//   console.log(res)
+// })
+
+fs.mkdir('output', (err) => {
+  getData().then((res) => {
+    fs.writeFile('./output/data.json', JSON.stringify(res), () => {})
+  })
+})

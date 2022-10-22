@@ -1,0 +1,22 @@
+name: update data
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        uses: ianwalter/puppeteer-container@v4.0.0
+      - run: npm run start
+ 
+       - uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: main
+          folder: output
+          clean: false
+          force: false
+          # clean-exclude: true
+          commit-message: update json file by action

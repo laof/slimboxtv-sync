@@ -1,6 +1,9 @@
 {
   "version": "0.0.1",
   "type": "module",
+  "scripts": {
+    "start": "node main.js"
+  },
   "devDependencies": {
     "puppeteer": "^19.1.0"
   }
