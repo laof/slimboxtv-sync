@@ -1,16 +1,15 @@
-import fs from 'fs'
 import puppeteer from 'puppeteer'
 
 const download = 'https://disk.yandex.ru/public/api/download-url'
-// palyload:
-// %7B%22hash%22%3A%22X7RmxaQDlo32xE7MgGwez%2F250YHfgd2XGtuj4kLZA%2Fq0ro%2B8lE56dyOEu6s%2Bccl%2Fq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2Fsbx_x96_x4_pro_1000mb_aosp_16_4_6.7z%22%2C%22sk%22%3A%22y4195f637758b945d7772d98905f1af1b%22%7D
 
-const cc = {
+const palyloadData = {
   hash: 'X7RmxaQDlo32xE7MgGwez/250YHfgd2XGtuj4kLZA/q0ro+8lE56dyOEu6s+ccl/q/J6bpmRyOJonT3VoXnDag==:/sbx_x96_x4_pro_1000mb_aosp_16_4_6.7z',
   sk: 'y4195f637758b945d7772d98905f1af1b'
 }
+// palyloadstring:
+// %7B%22hash%22%3A%22X7RmxaQDlo32xE7MgGwez%2F250YHfgd2XGtuj4kLZA%2Fq0ro%2B8lE56dyOEu6s%2Bccl%2Fq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2Fsbx_x96_x4_pro_1000mb_aosp_16_4_6.7z%22%2C%22sk%22%3A%22y4195f637758b945d7772d98905f1af1b%22%7D
 
-async function getData() {
+export async function getData() {
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox']
@@ -106,9 +105,3 @@ async function origin() {
 // origin().then((res) => {
 //   console.log(res)
 // })
-
-fs.mkdir('output', (err) => {
-  getData().then((res) => {
-    fs.writeFile('./output/data.json', JSON.stringify(res), () => {})
-  })
-})

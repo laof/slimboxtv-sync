@@ -1,5 +1,6 @@
 ### slimboxTV for x96x4
 
+<!--files_table-->
 
 
 解决闪退，两步到位！

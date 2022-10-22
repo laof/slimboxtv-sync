@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "start": "node main.js"
+    "start": "node scripts/update.js"
   },
   "dependencies": {
     "puppeteer": "^19.1.0"
