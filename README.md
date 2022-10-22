@@ -15,4 +15,4 @@
 ![Image text](img/aml-tool.png)
 
 ###### 开机
-![Image text](img/done.png)
+![Image text](img/done.jpg)
