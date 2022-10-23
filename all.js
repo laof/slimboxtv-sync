@@ -28,7 +28,7 @@ export async function getData() {
 
   // console.log(`found product:` + products.length)
 
-  const m2 = confData || [
+  const m2 = [
     {
       box: 'Vontar X2',
       img: 'https://slimboxtv.ru/wp-content/uploads/2022/08/vontar-x2-800x445.jpg',
@@ -37,7 +37,7 @@ export async function getData() {
   ]
 
   for (let item of m2) {
-    console.log('goto ' + `: ${item.box} homepage ${item.homepage}`)
+    console.log(`[${item.box}] (${item.homepage})`)
     /** product info page */
     await page.goto(item.homepage)
 
@@ -78,7 +78,7 @@ export async function getData() {
 
     for (let file of downlink) {
       for (let target of file.links) {
-        console.log('goto:disk.yandex.ru pan= > ', target.href)
+        console.log(`[${item.box}] => ${target.href}`)
         await page.goto(target.href) // http://disk.yandex.ru/x
 
         // [{name:"sbx_x96_x4_pro_1000mb_aosp_16_4_6",size:1564242,,modified,payload,url:https://downloader.disk.yandex.ru/disk/a57}]
