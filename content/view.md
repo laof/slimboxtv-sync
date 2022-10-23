@@ -1,7 +1,5 @@
 ### slimboxTV for x96x4
- <a href="https://www.baidu.com" target="_blank" rel="noopener noreferrer">baidu</a>
 
-<a href="javascript:alert(1);">ccc</a>
 
 <!--files_table-->
 
