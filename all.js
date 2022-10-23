@@ -25,7 +25,11 @@ export async function getData() {
 
   console.log(`found product:` + products.length)
 
-  const ok = [products[0], products[1]].reduce(async (arr, item) => {
+  const m2 = [products[0], products[1]]
+
+  const ok = []
+
+  for (let item of m2) {
     console.log('goto ' + `: ${item.box} homepage ${item.homepage}`)
     /** product info page */
     await page.goto(item.homepage)
@@ -53,9 +57,7 @@ export async function getData() {
         })
       } else {
         /** only one download link */
-        const a = dom.nextElementSibling.querySelector(
-          '.su-tabs-pane-open li a'
-        )
+        const a = document.querySelector('.su-tabs-pane-open li a')
         list.push({
           type: 'slimBOXtv',
           links: [{ href: a.href, name: a.innerHTML }]
@@ -120,8 +122,8 @@ export async function getData() {
       })
     })
 
-    return arr.push(links), arr
-  }, [])
+    ok.push(links)
+  }
 
   await browser.close()
 

@@ -17,3 +17,7 @@ fs.mkdir('output', (err) => {
     fs.writeFile('output/all_.json', JSON.stringify(res), () => {})
   })
 })
+
+// getData().then((res) => {
+//   fs.writeFile('all_.json', JSON.stringify(res), () => {})
+// })
