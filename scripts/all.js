@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { getData } from '../all.js'
-import { createREADME } from './readme.js'
+import { createREADME } from './_readme.js'
 
 fs.mkdir('output', (err) => {
   if (err) {

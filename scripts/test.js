@@ -1,9 +1,9 @@
 import fs from 'fs'
 import { getData } from '../all.js'
-import { create } from './readme.js'
+import { createREADME } from './_readme.js'
 
 var jsonData = JSON.parse(fs.readFileSync('all_.json').toString())
-create(jsonData)
+createREADME(jsonData)
 
 // console.log(JSON.parse(ccc.toString()))
 
