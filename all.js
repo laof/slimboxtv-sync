@@ -6,26 +6,32 @@ export async function getData() {
     args: ['--no-sandbox']
   })
   const page = await browser.newPage()
-  await page.goto('https://slimboxtv.ru')
+  // await page.goto('https://slimboxtv.ru')
 
-  // [{ box, img, homepage }....]
-  const products = await page.evaluate(async () => {
-    const article = document.querySelectorAll('.article-container article')
-    return Array.from(article).reduce((arr, dom) => {
-      const tv = dom.querySelectorAll('li').length
-      if (tv) {
-        const box = dom.querySelector('.entry-title a').innerHTML
-        const img = dom.querySelector('.featured-image img').src
-        const homepage = dom.querySelector('.more-link').href
-        arr.push({ box, img, homepage })
-      }
-      return arr
-    }, [])
-  })
+  // // [{ box, img, homepage }....]
+  // const products = await page.evaluate(async () => {
+  //   const article = document.querySelectorAll('.article-container article')
+  //   return Array.from(article).reduce((arr, dom) => {
+  //     const tv = dom.querySelectorAll('li').length
+  //     if (tv) {
+  //       const box = dom.querySelector('.entry-title a').innerHTML
+  //       const img = dom.querySelector('.featured-image img').src
+  //       const homepage = dom.querySelector('.more-link').href
+  //       arr.push({ box, img, homepage })
+  //     }
+  //     return arr
+  //   }, [])
+  // })
 
-  console.log(`found product:` + products.length)
+  // console.log(`found product:` + products.length)
 
-  const m2 = [products[0], products[1]]
+  const m2 = [
+    {
+      box: 'Vontar X2',
+      img: 'https://slimboxtv.ru/wp-content/uploads/2022/08/vontar-x2-800x445.jpg',
+      homepage: 'https://slimboxtv.ru/vontar-x2/'
+    }
+  ]
 
   for (let item of m2) {
     console.log('goto ' + `: ${item.box} homepage ${item.homepage}`)
@@ -69,6 +75,7 @@ export async function getData() {
 
     for (let file of downlink) {
       for (let target of file.links) {
+        console.log('goto:disk.yandex.ru pan= > ', target.href)
         await page.goto(target.href) // http://disk.yandex.ru/x
 
         // [{name:"sbx_x96_x4_pro_1000mb_aosp_16_4_6",size:1564242,,modified,payload,url:https://downloader.disk.yandex.ru/disk/a57}]
