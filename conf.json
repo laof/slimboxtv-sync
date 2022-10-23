@@ -1,5 +1,10 @@
 [
   {
+    "box": "X96 X4",
+    "img": "https://slimboxtv.ru/wp-content/uploads/2022/02/x96-x4-800x445.jpg",
+    "homepage": "https://slimboxtv.ru/x96-x4/"
+  },
+  {
     "box": "Vontar X2",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/08/vontar-x2-800x445.jpg",
     "homepage": "https://slimboxtv.ru/vontar-x2/"
@@ -13,11 +18,6 @@
     "box": "Vontar X4",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/06/vontar-x4-800x445.jpg",
     "homepage": "https://slimboxtv.ru/vontar-x4/"
-  },
-  {
-    "box": "X96 X4",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/02/x96-x4-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/x96-x4/"
   },
   {
     "box": "Smart Box Z1",
