@@ -81,6 +81,7 @@ export async function getData() {
     for (let file of downlink) {
       for (let target of file.links) {
         console.log(`[${item.box}] => ${target.href}`)
+        await page.setDefaultNavigationTimeout(0)
         await page.goto(target.href) // http://disk.yandex.ru/x
         await page.waitForSelector('#store-prefetch')
 
