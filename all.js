@@ -1,4 +1,7 @@
 import puppeteer from 'puppeteer'
+import fs from 'fs'
+
+var jsonData = fs.readFileSync('conf.json')
 
 export async function getData() {
   const browser = await puppeteer.launch({
@@ -25,7 +28,7 @@ export async function getData() {
 
   // console.log(`found product:` + products.length)
 
-  const m2 = [
+  const m2 = JSON.parse(jsonData.toString()) || [
     {
       box: 'Vontar X2',
       img: 'https://slimboxtv.ru/wp-content/uploads/2022/08/vontar-x2-800x445.jpg',

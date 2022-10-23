@@ -5,11 +5,6 @@
     "homepage": "https://slimboxtv.ru/vontar-x2/"
   },
   {
-    "box": "Тест прошивок",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/01/test-proshivok.jpg",
-    "homepage": "https://slimboxtv.ru/test-proshivok/"
-  },
-  {
     "box": "X98 S500",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/08/x98-s500-800x445.jpg",
     "homepage": "https://slimboxtv.ru/x98-s500/"
@@ -30,11 +25,6 @@
     "homepage": "https://slimboxtv.ru/x98-mini/"
   },
   {
-    "box": "Transpeed AV1",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/08/transpeed-av1-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/transpeed-av1/"
-  },
-  {
     "box": "Tanix W2",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/08/tanix-w2-800x445.jpg",
     "homepage": "https://slimboxtv.ru/tanix-w2/"
@@ -43,11 +33,6 @@
     "box": "Tanix X4",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/02/tanix-x4-800x445.jpg",
     "homepage": "https://slimboxtv.ru/tanix-x4/"
-  },
-  {
-    "box": "X96Max Plus Ultra",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/07/x96max-plus-ultra-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/x96max-plus-ultra/"
   },
   {
     "box": "Kingnovel X10 MAX",
@@ -70,44 +55,9 @@
     "homepage": "https://slimboxtv.ru/x96max-plus/"
   },
   {
-    "box": "Beelink GT King II",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/06/beelink-gt-king-ii-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/beelink-gt-king-ii/"
-  },
-  {
-    "box": "X96 mini",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2021/10/x96mini-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/x96mini/"
-  },
-  {
     "box": "Beelink GS-King X",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/02/beelink-gs-king-x-800x445.jpg",
     "homepage": "https://slimboxtv.ru/beelink-gs-king-x/"
-  },
-  {
-    "box": "Мегафон M8S Pro+",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/06/megafon-m8s-pro-669x445.jpg",
-    "homepage": "https://slimboxtv.ru/megafon-m8s-pro/"
-  },
-  {
-    "box": "Mecool M8S Pro",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/04/mecool-m8s-pro-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/mecool-m8s-pro/"
-  },
-  {
-    "box": "Okko Smart Box",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2021/11/okko-smart-box-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/okko-smart-box/"
-  },
-  {
-    "box": "MINIX Neo U9-H",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/05/minix-neo-u9-h-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/minix-neo-u9-h/"
-  },
-  {
-    "box": "Bqeel Y8 Max",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2021/06/bqeel-y8-max-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/bqeel-y8-max/"
   },
   {
     "box": "WIFIRE Q5",
@@ -265,11 +215,6 @@
     "homepage": "https://slimboxtv.ru/x99-max-plus/"
   },
   {
-    "box": "Tanix TX3",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/04/tanix-tx3-bz-qz-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/tanix-tx3-bz-qz/"
-  },
-  {
     "box": "X96Air",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/01/x96air-800x445.jpg",
     "homepage": "https://slimboxtv.ru/x96air/"
@@ -388,21 +333,6 @@
     "box": "Ugoos AM6, PRO, Plus, ревизия B",
     "img": "https://slimboxtv.ru/wp-content/uploads/2022/01/ugoos-am6-pro-plus-800x445.jpg",
     "homepage": "https://slimboxtv.ru/ugoos-am6-pro-plus/"
-  },
-  {
-    "box": "Ugoos X3 Cube, Pro",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/01/ugoos-x3-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/ugoos-x3/"
-  },
-  {
-    "box": "Ugoos X2 Cube, Pro",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/01/ugoos-x2-cube-pro-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/ugoos-x2-cube-pro/"
-  },
-  {
-    "box": "Mecool KM9",
-    "img": "https://slimboxtv.ru/wp-content/uploads/2022/01/mecool-km9-800x445.jpg",
-    "homepage": "https://slimboxtv.ru/mecool-km9/"
   },
   {
     "box": "Vosen V1",
