@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-export function create(list) {
+export function createREADME(list) {
   const today = new Date().toLocaleString('zh-cn', {
     timeZone: 'Asia/Shanghai'
   })

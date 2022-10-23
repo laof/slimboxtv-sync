@@ -1,15 +1,6 @@
 import fs from 'fs'
 import { getData } from '../all.js'
-const today = new Date().toLocaleString('zh-cn', { timeZone: 'Asia/Shanghai' })
-
-
-const temp = []
-
-let table = [
-  '当前同步于 ' + today,
-  '| 文件名 | 大小 | 发布日期 |',
-  '| ---- | ---- | ---- |'
-]
+import { createREADME } from './readme.js'
 
 fs.mkdir('output', (err) => {
   if (err) {
@@ -17,11 +8,8 @@ fs.mkdir('output', (err) => {
   }
 
   getData().then((res) => {
+    const txt = createREADME(res)
     fs.writeFile('output/all_.json', JSON.stringify(res), () => {})
+    fs.writeFile('output/README.md', txt, () => {})
   })
 })
-
-// getData().then((res) => {
-//   fs.writeFile('all_.json', JSON.stringify(res), () => {})
-// })
-
