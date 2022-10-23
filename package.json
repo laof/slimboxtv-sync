@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "update": "node scripts/all.js",
-    "x": "node scripts/update.js"
+    "x2": "node scripts/update.js"
   },
   "dependencies": {
     "puppeteer": "^19.1.0"

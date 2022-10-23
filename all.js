@@ -66,7 +66,7 @@ export async function getData() {
         /** only one download link */
         const a = document.querySelector('.su-tabs-pane-open li a')
         list.push({
-          type: 'slimBOXtv',
+          type: '',
           links: [{ href: a.href, name: a.innerHTML }]
         })
       }

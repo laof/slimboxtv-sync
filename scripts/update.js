@@ -1,12 +1,6 @@
 import fs from 'fs'
 import { getData } from '../main.js'
-const today = new Date().toLocaleString('zh-cn', { timeZone: 'Asia/Shanghai' })
-
-let table = [
-  '当前同步于 ' + today,
-  '| 文件名 | 大小 | 发布日期 |',
-  '| ---- | ---- | ---- |'
-]
+import { create } from './readme.js'
 
 fs.mkdir('output', (err) => {
   if (err) {
@@ -14,18 +8,8 @@ fs.mkdir('output', (err) => {
   }
 
   getData().then((res) => {
-    res.forEach((file) => {
-      const { name, url, size, modified } = file
-      const mb = (size / 1024 / 1024).toFixed(2) + 'M'
-      table.push(
-        ` | [${name}](https://laof.github.io/x96x4/#${url}) | ${mb} | ${modified} |`
-      )
-    })
-
-    const view = fs.readFileSync('view/README.md', 'utf-8')
-    const readme = view.replace('<!--files_table-->', table.join('\n'))
-
-    // fs.writeFile('output/data.json', JSON.stringify(res), () => {})
-    fs.writeFile('output/README.md', readme, () => {})
+    const txt = create(res)
+    fs.writeFile('output/all_.json', JSON.stringify(res), () => {})
+    fs.writeFile('output/README.md', txt, () => {})
   })
 })
