@@ -118,20 +118,26 @@ export async function getData() {
             return arr
           }, [])
 
-          const files = list.map((item) =>
-            fetch('https://disk.yandex.ru/public/api/download-url', {
-              method: 'post',
-              body: item.payload
+          const files = list.map((item) => {
+            return new Promise((resolve) => {
+              try {
+                fetch('https://disk.yandex.ru/public/api/download-url', {
+                  method: 'post',
+                  body: item.payload
+                })
+                  .then((res) => res.json())
+                  .then((res) => {
+                    let url = ''
+                    try {
+                      url = res.data.url
+                    } catch (e) {}
+                    return resolve(Object.assign(item, { url }))
+                  })
+              } catch (e) {
+                resolve(Object.assign(item, { url: 'error' }))
+              }
             })
-              .then((res) => res.json())
-              .then((res) => {
-                let url = ''
-                try {
-                  url = res.data.url
-                } catch (e) {}
-                return Object.assign(item, { url })
-              })
-          )
+          })
 
           return Promise.all(files)
         })
