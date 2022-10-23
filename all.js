@@ -27,8 +27,6 @@ export async function getData() {
 
   const m2 = [products[0], products[1]]
 
-  const ok = []
-
   for (let item of m2) {
     console.log('goto ' + `: ${item.box} homepage ${item.homepage}`)
     /** product info page */
@@ -121,11 +119,9 @@ export async function getData() {
         target.info = info
       })
     })
-
-    ok.push(links)
   }
 
   await browser.close()
 
-  return ok
+  return m2
 }
