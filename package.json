@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "update": "node scripts/all.js",
+    "test": "node scripts/test.js",
     "x2": "node scripts/update.js"
   },
   "dependencies": {

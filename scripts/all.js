@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { getData } from '../all.js'
-import { createREADME } from './_readme.js'
+import { table } from './_readme.js'
 
 fs.mkdir('output', (err) => {
   if (err) {
@@ -8,7 +8,7 @@ fs.mkdir('output', (err) => {
   }
 
   getData().then((res) => {
-    const txt = createREADME(res)
+    const txt = table(res)
     fs.writeFile('output/all_.json', JSON.stringify(res), () => {})
     fs.writeFile('output/README.md', txt, () => {})
   })
