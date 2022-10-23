@@ -67,8 +67,8 @@ export async function getData() {
 
     item.disk = downlink
 
-    downlink.forEach(async (file) => {
-      file.links.forEach(async (target) => {
+    for (let file of downlink) {
+      for (let target of file.links) {
         await page.goto(target.href) // http://disk.yandex.ru/x
 
         // [{name:"sbx_x96_x4_pro_1000mb_aosp_16_4_6",size:1564242,,modified,payload,url:https://downloader.disk.yandex.ru/disk/a57}]
@@ -117,8 +117,8 @@ export async function getData() {
         })
 
         target.info = info
-      })
-    })
+      }
+    }
   }
 
   await browser.close()
