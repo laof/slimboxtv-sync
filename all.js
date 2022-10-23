@@ -86,9 +86,16 @@ export async function getData() {
 
         // [{name:"sbx_x96_x4_pro_1000mb_aosp_16_4_6",size:1564242,,modified,payload,url:https://downloader.disk.yandex.ru/disk/a57}]
         const info = await page.evaluate(async () => {
-          const data = JSON.parse(
-            document.getElementById('store-prefetch').innerHTML
-          )
+          let data
+
+          try {
+            data = JSON.parse(
+              document.getElementById('store-prefetch').innerHTML
+            )
+          } catch (e) {
+            return Promise.resolve([])
+          }
+
           const idArr = data.resources[data.rootResourceId].children
 
           const list = idArr.reduce((arr, id) => {
