@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 import fs from 'fs'
 
-var jsonData = fs.readFileSync('conf.json')
+var confData = JSON.parse(fs.readFileSync('conf.json').toString())
 
 export async function getData() {
   const browser = await puppeteer.launch({
@@ -13,22 +13,22 @@ export async function getData() {
 
   // // [{ box, img, homepage }....]
   // const products = await page.evaluate(async () => {
-  //   const article = document.querySelectorAll('.article-container article')
-  //   return Array.from(article).reduce((arr, dom) => {
-  //     const tv = dom.querySelectorAll('li').length
-  //     if (tv) {
-  //       const box = dom.querySelector('.entry-title a').innerHTML
-  //       const img = dom.querySelector('.featured-image img').src
-  //       const homepage = dom.querySelector('.more-link').href
-  //       arr.push({ box, img, homepage })
-  //     }
-  //     return arr
-  //   }, [])
+  // const article = document.querySelectorAll('.article-container article')
+  // return Array.from(article).reduce((arr, dom) => {
+  //   const tv = dom.querySelectorAll('li').length
+  //   if (tv) {
+  //     const box = dom.querySelector('.entry-title a').innerHTML
+  //     const img = dom.querySelector('.featured-image img').src
+  //     const homepage = dom.querySelector('.more-link').href
+  //     arr.push({ box, img, homepage })
+  //   }
+  //   return arr
+  // }, [])
   // })
 
   // console.log(`found product:` + products.length)
 
-  const m2 = JSON.parse(jsonData.toString()) || [
+  const m2 = confData || [
     {
       box: 'Vontar X2',
       img: 'https://slimboxtv.ru/wp-content/uploads/2022/08/vontar-x2-800x445.jpg',
