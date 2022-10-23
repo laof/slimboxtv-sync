@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer'
 import fs from 'fs'
+import { waitForDebugger } from 'inspector'
 
 var box = JSON.parse(fs.readFileSync('conf.json').toString())
 
@@ -81,6 +82,7 @@ export async function getData() {
       for (let target of file.links) {
         console.log(`[${item.box}] => ${target.href}`)
         await page.goto(target.href) // http://disk.yandex.ru/x
+        await page.waitForSelector('#store-prefetch')
 
         // [{name:"sbx_x96_x4_pro_1000mb_aosp_16_4_6",size:1564242,,modified,payload,url:https://downloader.disk.yandex.ru/disk/a57}]
         const info = await page.evaluate(async () => {
