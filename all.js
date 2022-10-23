@@ -39,7 +39,7 @@ export async function getData() {
   for (let item of m2) {
     console.log(`[${item.box}] (${item.homepage})`)
     /** product info page */
-    await page.setDefaultNavigationTimeout(1000 * 60 * 3)
+    await page.setDefaultNavigationTimeout(0)
     await page.goto(item.homepage)
 
     /** [{type:'Lan 1000',links:[{href:"http://disk.yandex.ru/x", name:'AOSP'}]}] */
