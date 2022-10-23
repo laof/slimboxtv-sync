@@ -22,7 +22,7 @@ fs.mkdir('output', (err) => {
       )
     })
 
-    const view = fs.readFileSync('content/view.md', 'utf-8')
+    const view = fs.readFileSync('view/README.md', 'utf-8')
     const readme = view.replace('<!--files_table-->', table.join('\n'))
 
     // fs.writeFile('output/data.json', JSON.stringify(res), () => {})
