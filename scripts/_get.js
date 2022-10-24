@@ -4,15 +4,21 @@ export async function get(box) {
   for (const item of box) {
     console.log(item.box, item.homepage)
     await sleep(3)
-    const disk = await product(item.homepage)
-    for (const download of disk) {
-      for (const target of download.link) {
+    const { error, list } = await product(item.homepage)
+
+    error.forEach((err) => {
+      const e = [item.box, item.homepage, err]
+      console.log(e.join(' => '))
+    })
+
+    for (const category of list) {
+      for (const target of category.link) {
         await retry(3, async (i) => {
-          const log = `downloader retry ${i}: ${item.box} ${target.href}`
-          console.log(log)
+          const message = `downloader retry ${i}: ${item.box} ${target.href}`
+          console.log(message)
           await sleep(5)
           const { error, files } = await downloader(target.href)
-          error.forEach((err) => console.log(log + ' error:' + err))
+          error.forEach((err) => console.log(message + ' error:' + err))
           target.files = error.length ? [] : files
           return files.length
         })
@@ -49,7 +55,7 @@ export async function createBrowserContext() {
 export async function slimboxtv() {
   const { browser, page } = await createBrowserContext()
   await page.goto('https://slimboxtv.ru')
-  const boxs = await page.evaluate(async () => {
+  const box = await page.evaluate(async () => {
     const article = document.querySelectorAll('.article-container article')
     return Array.from(article).reduce((arr, dom) => {
       const tv = dom.querySelectorAll('li').length
@@ -63,7 +69,7 @@ export async function slimboxtv() {
     }, [])
   })
   await browser.close()
-  return boxs
+  return box
 }
 
 /**
@@ -79,41 +85,40 @@ export async function product(url) {
   await page.goto(url)
 
   /** [{type:'Lan 1000',link:[{href:"http://disk.yandex.ru/x", name:'AOSP'}]}] */
-  const disk = await page.evaluate(async (url) => {
-    const list = []
+  const data = await page.evaluate(async () => {
+    const obj = { error: [], list: [] }
     const category = document.querySelectorAll('.has-text-align-center')
 
     if (category.length) {
       Array.from(category).forEach((dom) => {
-        var title = dom.querySelector('strong')
+        const link = []
+        const title = dom.querySelector('strong')
 
         if (!title) {
-          console.log(`[product] ${url} not found strong`)
-          return
+          obj.error.push(`category not found strong`)
+          return obj
         }
 
-        const link = []
         const li = dom.nextElementSibling.querySelectorAll(
           '.su-tabs-pane-open li'
         )
 
         if (!li.length) {
-          console.log(`[product] ${url} not found .su-tabs-pane-open li`)
-          return
+          obj.error.push(`category not found .su-tabs-pane-open li`)
+          return obj
         }
 
         Array.from(li).forEach((dom) => {
           const a = dom.querySelector('a')
-
           if (a) {
             link.push({ href: a.href, name: a.innerHTML })
           } else {
-            console.log(`[product] ${url} not found download link`)
+            obj.error.push(`category not found download target`)
           }
         })
 
         if (link.length) {
-          list.push({ type: title.innerHTML, link })
+          obj.list.push({ type: title.innerHTML, link })
         }
       })
     } else {
@@ -121,21 +126,21 @@ export async function product(url) {
       const a = document.querySelector('.su-tabs-pane-open li a')
 
       if (a) {
-        list.push({
+        obj.list.push({
           type: '',
           link: [{ href: a.href, name: a.innerHTML }]
         })
       } else {
-        console.log(`[product] ${url} not found download target`)
+        obj.error.push(`only-one not found download target`)
       }
     }
 
-    return list
-  }, url)
+    return obj
+  })
 
   await browser.close()
 
-  return disk
+  return data
 }
 
 export async function downloader(disklink) {
@@ -197,40 +202,34 @@ export async function downloader(disklink) {
       return new Promise((resolve) => {
         const payload = item.payload
         Reflect.deleteProperty(item, 'payload')
-        setTimeout(()=> resolve && resolve(), 7*1000)
-      
-        try {
-          fetch('https://disk.yandex.ru/public/api/download-url', {
-            method: 'post',
-            body: payload
+        const timer = setTimeout(() => resolve(null), 5 * 1000)
+
+        fetch('https://disk.yandex.ru/public/api/download-url', {
+          method: 'post',
+          body: payload
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            clearTimeout(timer)
+            const url = res.data.url
+            resolve(Object.assign(item, { url }))
           })
-            .then((res) => res.json())
-            .then((res) => {
-              let url
-              try {
-                url = res.data.url
-              } catch (e) {
-                obj.error.push(`${item.id} res.data.url`)
-                return resolve(null)
-              }
-              return resolve(Object.assign(item, { url }))
-            })
-        } catch (e) {
-          obj.error.push(`${item.id} fetch download url`)
-          resolve(null)
-        }
+          .catch((e) => {
+            clearTimeout(timer)
+            obj.error.push(`${item.id} fetch download url`)
+            resolve(null)
+          })
       })
     })
 
+    if (obj.error.length) {
+      obj.files = []
+    } else {
+      // [{name:"x96_x4.7z",url:https://downloader.disk.yandex.ru/disk/a57}]
+      const f = await Promise.all(loader)
+      obj.files = f.filter((o) => o)
+    }
 
-    let files = []
-    if (!obj.error.length && loader.length) {
-      // [{name:"x96_x4.7z",size,modified,url:https://downloader.disk.yandex.ru/disk/a57}]
-      files = await Promise.all(loader)
-      files = files.filter((o)=>o)
-     }   
-    obj.files = files
-    
     return obj
   })
 
@@ -239,7 +238,7 @@ export async function downloader(disklink) {
   return fs
 }
 
-export async function getData() {
+export async function refresh() {
   const { page, browser } = await createBrowserContext()
 
   const m2 = [
