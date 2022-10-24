@@ -81,6 +81,10 @@ export function table(list) {
     temp.push(`<table>${item.join('')}</table>`)
   })
 
+  if (!list.length) {
+    temp.push('Oh~ Sorry, Job Failed.')
+  }
+
   const view = readFileSync('view/README.md', 'utf-8')
   const readme = view.replace('<!--files_table-->', temp.join('<br/>'))
   return readme
