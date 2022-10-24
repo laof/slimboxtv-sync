@@ -226,7 +226,7 @@ export async function downloader(disklink) {
     if (!obj.error.length && loader.length) {
       // [{name:"x96_x4.7z",size,modified,url:https://downloader.disk.yandex.ru/disk/a57}]
       files = await Promise.all(loader)
-
+      files = files.filter((o)=>o)
      }   
     obj.files = files
     
