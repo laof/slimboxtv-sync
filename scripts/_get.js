@@ -44,7 +44,7 @@ export async function product(url) {
   await page.goto(url)
 
   /** [{type:'Lan 1000',link:[{href:"http://disk.yandex.ru/x", name:'AOSP'}]}] */
-  const disk = await page.evaluate(async () => {
+  const disk = await page.evaluate(async (url) => {
     const list = []
     const category = document.querySelectorAll('.has-text-align-center')
 
