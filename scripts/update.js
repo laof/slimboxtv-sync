@@ -2,7 +2,6 @@ import fs from 'fs'
 import { product, downloader, retry, sleep } from './_get.js'
 import { table } from './_readme.js'
 import list from '../conf.js'
-
 const update = [...new Set(list)]
 const all = JSON.parse(fs.readFileSync('box.json').toString())
 // const box = all.filter((item) => update.includes(item.box))
