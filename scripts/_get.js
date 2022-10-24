@@ -96,7 +96,7 @@ export async function product(url) {
     }
 
     return list
-  })
+  }, url)
 
   await browser.close()
 
