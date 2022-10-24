@@ -4,6 +4,8 @@ import { box } from '../conf/index.js'
 export * from '../conf/index.js'
 
 const output = 'output'
+const hidr = 'history'
+const today = hidr + '/' + current() + '.json'
 
 if (!existsSync(output)) {
   mkdirSync(output)
@@ -14,8 +16,6 @@ export function update() {
   const newbox = box.filter((item) => !list.find((obj) => obj.box == item.box))
   return { history: list, box: newbox }
 }
-const historydir = 'history'
-export const today = historydir + '/2022_10_24.json'
 
 export function history() {
   if (existsSync(today)) {
@@ -30,7 +30,7 @@ export function history() {
   return []
 }
 
-export function today222() {
+export function current() {
   const date = new Date()
   const arr = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
   return arr.join('_')
@@ -38,7 +38,7 @@ export function today222() {
 
 export function readme(data) {
   writeFileSync('output/README.md', table(data))
-  mkdirSync(output + '/' + historydir)
+  mkdirSync(output + '/' + hidr)
   writeFileSync(output + '/' + today, JSON.stringify(data))
 }
 
