@@ -5,7 +5,8 @@ import list from '../conf.js'
 
 const update = [...new Set(list)]
 const all = JSON.parse(fs.readFileSync('box.json').toString())
-const box = all.filter((item) => update.includes(item.box))
+// const box = all.filter((item) => update.includes(item.box))
+const box = all
 
 fs.mkdir('output', async (err) => {
   if (err) {
@@ -14,13 +15,14 @@ fs.mkdir('output', async (err) => {
 
   for (const item of box) {
     console.log(item.box, item.homepage)
+    await sleep(3)
     const disk = await product(item.homepage)
     for (const download of disk) {
       for (const target of download.link) {
-        await sleep(3)
         await retry(3, async (i) => {
           const log = `downloader retry ${i}: ${item.box} ${target.href}`
           console.log(log)
+          await sleep(5)
           const { error, files } = await downloader(target.href)
           error.forEach((err) => console.log(log + ' error:' + err))
           target.files = error.length ? [] : files
