@@ -12,7 +12,7 @@ export async function createBrowserContext() {
 }
 
 export async function slimboxtv() {
-  const { browser, pages } = createBrowserContext()
+  const { browser, pages } = await createBrowserContext()
   await pages.goto('https://slimboxtv.ru')
   const boxs = await pages.evaluate(async () => {
     const article = document.querySelectorAll('.article-container article')
@@ -36,7 +36,7 @@ export async function slimboxtv() {
  * @param {*} arr [{box:'Vontar X2', img:'https://slimboxtv.ru/vontar-x2-800x445.jpg', homepage:'https://slimboxtv.ru/vontar-x2/'}]
  */
 export async function product(url) {
-  const { pages, browser } = createBrowserContext()
+  const { pages, browser } = await createBrowserContext()
 
   /** product info page */
   // await page.setDefaultNavigationTimeout(0)
@@ -104,7 +104,7 @@ export async function product(url) {
 }
 
 export async function downloader(url) {
-  const { pages, browser } = createBrowserContext()
+  const { pages, browser } = await createBrowserContext()
   await pages.goto(url) // http://disk.yandex.ru/x
   await pages.waitForSelector('#store-prefetch') //json data
 
@@ -201,7 +201,7 @@ export async function downloader(url) {
 }
 
 export async function getData() {
-  const { pages, browser } = createBrowserContext()
+  const { pages, browser } = await createBrowserContext()
 
   const m2 = [
     {
