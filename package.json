@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "update": "node scripts/all.js",
+    "update": "node scripts/update.js",
     "test": "node scripts/test.js",
     "x2": "node scripts/update.js"
   },
