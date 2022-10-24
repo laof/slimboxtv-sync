@@ -1,5 +1,28 @@
 import puppeteer from 'puppeteer'
 
+export async function get(box) {
+  for (const item of box) {
+    console.log(item.box, item.homepage)
+    await sleep(3)
+    const disk = await product(item.homepage)
+    for (const download of disk) {
+      for (const target of download.link) {
+        await retry(3, async (i) => {
+          const log = `downloader retry ${i}: ${item.box} ${target.href}`
+          console.log(log)
+          await sleep(5)
+          const { error, files } = await downloader(target.href)
+          error.forEach((err) => console.log(log + ' error:' + err))
+          target.files = error.length ? [] : files
+          return files.length
+        })
+      }
+    }
+    item.disk = disk
+  }
+  return box
+}
+
 export function sleep(ms = 1) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms * 1000))
 }

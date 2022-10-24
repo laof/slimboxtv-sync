@@ -1,4 +1,49 @@
-import fs from 'fs'
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
+
+import { box } from '../conf/index.js'
+export * from '../conf/index.js'
+
+const output = 'output'
+
+if (!existsSync(output)) {
+  mkdirSync(output)
+}
+
+export function update() {
+  const list = history()
+  const newbox = box.filter((item) => !list.find((obj) => obj.box == item.box))
+  return { history: list, box: newbox }
+}
+
+export const today = 'history/2022_10_24.json'
+
+export function history() {
+  if (existsSync(today)) {
+    try {
+      const data = readFileSync(today, 'utf-8')
+      return JSON.parse(data)
+    } catch (e) {
+      return []
+    }
+  }
+  writeFileSync(f, '')
+  return []
+}
+
+export function today222() {
+  const date = new Date()
+  const arr = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+  return arr.join('_')
+}
+
+export function readme(data) {
+  writeFileSync('output/README.md', table(data))
+  writeFileSync(today, JSON.stringify(data))
+}
+
+export function local(data) {
+  writeFileSync('output/local.md', table(data))
+}
 
 export function table(list) {
   const today = new Date().toLocaleString('zh-cn', {
@@ -35,7 +80,7 @@ export function table(list) {
     temp.push(`<table>${item.join('')}</table>`)
   })
 
-  const view = fs.readFileSync('view/README.md', 'utf-8')
+  const view = readFileSync('view/README.md', 'utf-8')
   const readme = view.replace('<!--files_table-->', temp.join('<br/>'))
   return readme
 }
@@ -71,7 +116,7 @@ export function md(list) {
     temp.push(item.join('\n'))
   })
 
-  const view = fs.readFileSync('view/README.md', 'utf-8')
+  const view = readFileSync('view/README.md', 'utf-8')
   const readme = view.replace('<!--files_table-->', temp.join('\n\n'))
   return readme
 }

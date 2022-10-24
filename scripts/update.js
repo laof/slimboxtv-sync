@@ -1,46 +1,8 @@
-import fs from 'fs'
-import { product, downloader, retry, sleep } from './_get.js'
-import { table } from './_readme.js'
-import list from '../conf.js'
-const update = [...new Set(list)]
-const all = JSON.parse(fs.readFileSync('box.json').toString())
-const box = all.filter((item) => update.includes(item.box))
-// const box = all
+import { get } from './_get.js'
+import { readme, update } from './_helper.js'
 
-fs.mkdir('output', async (err) => {
-  if (err) {
-    return
-  }
+const { history, box } = update()
 
-  for (const item of box) {
-    console.log(item.box, item.homepage)
-    await sleep(3)
-    const disk = await product(item.homepage)
-    for (const download of disk) {
-      for (const target of download.link) {
-        await retry(3, async (i) => {
-          const log = `downloader retry ${i}: ${item.box} ${target.href}`
-          console.log(log)
-          await sleep(5)
-          const { error, files } = await downloader(target.href)
-          error.forEach((err) => console.log(log + ' error:' + err))
-          target.files = error.length ? [] : files
-          return files.length
-        })
-      }
-    }
-    item.disk = disk
-  }
-
-  fs.writeFile('output/10241.json', JSON.stringify(box), () => {})
-
-  fs.writeFile('output/README.md', table(box), () => {})
-
-  // fs.writeFile('output/10241.json', JSON.stringify(box), () => {})
-
-  // getData().then((res) => {
-  //   const txt = table(res)
-  //   fs.writeFile('output/all_.json', JSON.stringify(res), () => {})
-  //   fs.writeFile('output/README.md', txt, () => {})
-  // })
-})
+const now = await get(box)
+const data = history.concat(...now)
+readme(data)
