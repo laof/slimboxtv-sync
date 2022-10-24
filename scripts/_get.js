@@ -197,7 +197,8 @@ export async function downloader(disklink) {
       return new Promise((resolve) => {
         const payload = item.payload
         Reflect.deleteProperty(item, 'payload')
-
+        setTimeout(()=> resolve && resolve(), 7*1000)
+      
         try {
           fetch('https://disk.yandex.ru/public/api/download-url', {
             method: 'post',
