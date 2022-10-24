@@ -221,13 +221,15 @@ export async function downloader(disklink) {
       })
     })
 
-    // [{name:"x96_x4.7z",size,modified,url:https://downloader.disk.yandex.ru/disk/a57}]
-    const files = await Promise.all(loader)
 
-    if (!obj.error.length) {
-      obj.files = files
-    }
+    let files = []
+    if (!obj.error.length && loader.length) {
+      // [{name:"x96_x4.7z",size,modified,url:https://downloader.disk.yandex.ru/disk/a57}]
+      files = await Promise.all(loader)
 
+     }   
+    obj.files = files
+    
     return obj
   })
 
