@@ -6,15 +6,15 @@ export async function createBrowserContext() {
     args: ['--no-sandbox']
   })
 
-  const pages = await browser.pages()
+  const page = await browser.newPage()
 
-  return { browser, pages }
+  return { browser, page }
 }
 
 export async function slimboxtv() {
-  const { browser, pages } = await createBrowserContext()
-  await pages.goto('https://slimboxtv.ru')
-  const boxs = await pages.evaluate(async () => {
+  const { browser, page } = await createBrowserContext()
+  await page.goto('https://slimboxtv.ru')
+  const boxs = await page.evaluate(async () => {
     const article = document.querySelectorAll('.article-container article')
     return Array.from(article).reduce((arr, dom) => {
       const tv = dom.querySelectorAll('li').length
@@ -36,15 +36,15 @@ export async function slimboxtv() {
  * @param {*} arr [{box:'Vontar X2', img:'https://slimboxtv.ru/vontar-x2-800x445.jpg', homepage:'https://slimboxtv.ru/vontar-x2/'}]
  */
 export async function product(url) {
-  const { pages, browser } = await createBrowserContext()
+  const { page, browser } = await createBrowserContext()
 
   /** product info page */
   // await page.setDefaultNavigationTimeout(0)
 
-  await pages.goto(url)
+  await page.goto(url)
 
   /** [{type:'Lan 1000',link:[{href:"http://disk.yandex.ru/x", name:'AOSP'}]}] */
-  const disk = await pages.evaluate(async () => {
+  const disk = await page.evaluate(async () => {
     const list = []
     const category = document.querySelectorAll('.has-text-align-center')
 
@@ -104,11 +104,11 @@ export async function product(url) {
 }
 
 export async function downloader(url) {
-  const { pages, browser } = await createBrowserContext()
-  await pages.goto(url) // http://disk.yandex.ru/x
-  await pages.waitForSelector('#store-prefetch') //json data
+  const { page, browser } = await createBrowserContext()
+  await page.goto(url) // http://disk.yandex.ru/x
+  await page.waitForSelector('#store-prefetch') //json data
 
-  const fs = await pages.evaluate(async () => {
+  const fs = await page.evaluate(async () => {
     let data, resource
     const obj = { error: [], files: [] }
 
@@ -201,7 +201,7 @@ export async function downloader(url) {
 }
 
 export async function getData() {
-  const { pages, browser } = await createBrowserContext()
+  const { page, browser } = await createBrowserContext()
 
   const m2 = [
     {
@@ -216,10 +216,10 @@ export async function getData() {
     /** product info page */
     // await page.setDefaultNavigationTimeout(0)
 
-    await pages.goto(item.homepage)
+    await page.goto(item.homepage)
 
     /** [{type:'Lan 1000',links:[{href:"http://disk.yandex.ru/x", name:'AOSP'}]}] */
-    const downlink = await pages.evaluate(async () => {
+    const downlink = await page.evaluate(async () => {
       const list = []
       const typeName = document.querySelectorAll('.has-text-align-center')
 
@@ -256,12 +256,12 @@ export async function getData() {
     for (let file of downlink) {
       for (let target of file.links) {
         console.log(`[${item.box}] => ${target.href}`)
-        await pages.setDefaultNavigationTimeout(0)
-        await pages.goto(target.href) // http://disk.yandex.ru/x
-        await pages.waitForSelector('#store-prefetch')
+        await page.setDefaultNavigationTimeout(0)
+        await page.goto(target.href) // http://disk.yandex.ru/x
+        await page.waitForSelector('#store-prefetch')
 
         // [{name:"sbx_x96_x4_pro_1000mb_aosp_16_4_6",size:1564242,,modified,payload,url:https://downloader.disk.yandex.ru/disk/a57}]
-        const info = await pages.evaluate(async () => {
+        const info = await page.evaluate(async () => {
           let data
 
           try {
