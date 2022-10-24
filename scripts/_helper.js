@@ -26,7 +26,7 @@ export function history() {
       return []
     }
   }
-  writeFileSync(f, '')
+  writeFileSync(today, '')
   return []
 }
 
