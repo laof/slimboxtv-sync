@@ -76,9 +76,9 @@ export default [
   'A95X W2',
   'Ugoos X4 Pro',
   'Zoomtak King S22',
-  //   'Ugoos AM6, PRO, Plus, ревизия B',
-  //   'Ugoos X3 Cube, Pro',
-  //   'Ugoos X2 Cube, Pro',
+  'Ugoos AM6, PRO, Plus, ревизия B',
+  'Ugoos X3 Cube, Pro',
+  'Ugoos X2 Cube, Pro',
   'Mecool KM9',
   'Vosen V1',
   'Smart Box Z1'
