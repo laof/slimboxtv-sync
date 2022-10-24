@@ -1,7 +1,7 @@
 #### X96x4 线刷教程
 
 ###### 一、官网下载固件 (需要VPN，[主页已搬运](https://github.com/laof/slimboxtv)，可跳过)
-进入北极熊的slimboxtv[官网](https://slimboxtv.ru)，在x96x4产品页 https://slimboxtv.ru/x96-x4 找到对应ATV版本，下载并解压得到sbx_x96_x4_pro_1000mb_atv_16_4_7.img文件。
+进入slimboxtv[官网](https://slimboxtv.ru)，在x96x4产品页 https://slimboxtv.ru/x96-x4 找到对应ATV版本，下载并解压得到sbx_x96_x4_pro_1000mb_atv_16_4_7.img文件。
 ![Image text](../img/slimboxtv.ru_x96-x4_.png)
 
 ![Image text](../img/download-atv.png)
