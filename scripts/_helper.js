@@ -14,8 +14,8 @@ export function update() {
   const newbox = box.filter((item) => !list.find((obj) => obj.box == item.box))
   return { history: list, box: newbox }
 }
-
-export const today = 'history/2022_10_24.json'
+const historydir = 'history'
+export const today = historydir + '/2022_10_24.json'
 
 export function history() {
   if (existsSync(today)) {
@@ -38,7 +38,8 @@ export function today222() {
 
 export function readme(data) {
   writeFileSync('output/README.md', table(data))
-  writeFileSync(today, JSON.stringify(data))
+  mkdirSync(output + '/' + historydir)
+  writeFileSync(output + '/' + today, JSON.stringify(data))
 }
 
 export function local(data) {
