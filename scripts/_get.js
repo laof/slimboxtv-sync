@@ -169,7 +169,7 @@ export async function downloader(disklink) {
           })
             .then((res) => res.json())
             .then((res) => {
-              let url = ''
+              let url
               try {
                 url = res.data.url
               } catch (e) {

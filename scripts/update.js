@@ -13,9 +13,11 @@ fs.mkdir('output', async (err) => {
   }
 
   for (let item of box) {
+    console.log(item.box, item.homepage)
     const disk = await product(item.homepage)
     for (let download of disk) {
       for (let target of download.link) {
+        console.log(item.box, 'downloader', target.href)
         const { error, files } = await downloader(target.href)
         error.forEach((err) =>
           console.log(`error: ${box} ${target.href} ${err}`)
