@@ -31,7 +31,7 @@ fs.mkdir('output', async (err) => {
     item.disk = disk
   }
 
-  fs.writeFile('output/10241.json', JSON.stringify(res), () => {})
+  fs.writeFile('output/10241.json', JSON.stringify(box), () => {})
 
   fs.writeFile('output/README.md', table(box), () => {})
 
