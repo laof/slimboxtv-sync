@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { product, downloader } from './_get.js'
+import { product, downloader, retry, sleep } from './_get.js'
 import { table } from './_readme.js'
 import list from '../conf.js'
 
@@ -12,17 +12,20 @@ fs.mkdir('output', async (err) => {
     return
   }
 
-  for (let item of box) {
+  for (const item of box) {
     console.log(item.box, item.homepage)
     const disk = await product(item.homepage)
-    for (let download of disk) {
-      for (let target of download.link) {
-        console.log(item.box, 'downloader', target.href)
-        const { error, files } = await downloader(target.href)
-        error.forEach((err) =>
-          console.log(`error: ${box} ${target.href} ${err}`)
-        )
-        target.info = error.length ? [] : files
+    for (const download of disk) {
+      for (const target of download.link) {
+        await sleep(3)
+        await retry(async (i) => {
+          const log = `downloader retry${i}: ${item.box} ${target.href}`
+          console.log(log)
+          const { error, files } = await downloader(target.href)
+          error.forEach((err) => console.log(log + ' error:' + err))
+          target.info = error.length ? [] : files
+          return error.length
+        })
       }
     }
     item.disk = disk

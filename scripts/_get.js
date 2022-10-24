@@ -1,5 +1,17 @@
 import puppeteer from 'puppeteer'
 
+export async function sleep(ms = 1) {
+  return new Promise((resolve) => setTimeout(() => resolve(), ms * 1000))
+}
+
+export async function retry(max, cb) {
+  let i = 0
+  while (i < max) {
+    if (await cb(i)) return
+    i += 1
+  }
+}
+
 export async function createBrowserContext() {
   const browser = await puppeteer.launch({
     headless: true,
