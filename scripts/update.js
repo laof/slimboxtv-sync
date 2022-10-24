@@ -18,8 +18,8 @@ fs.mkdir('output', async (err) => {
     for (const download of disk) {
       for (const target of download.link) {
         await sleep(3)
-        await retry(async (i) => {
-          const log = `downloader retry${i}: ${item.box} ${target.href}`
+        await retry(3, async (i) => {
+          const log = `downloader retry ${i}: ${item.box} ${target.href}`
           console.log(log)
           const { error, files } = await downloader(target.href)
           error.forEach((err) => console.log(log + ' error:' + err))

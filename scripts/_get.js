@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer'
 
-export async function sleep(ms = 1) {
+export function sleep(ms = 1) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms * 1000))
 }
 
