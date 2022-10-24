@@ -4,8 +4,8 @@ import { table } from './_readme.js'
 import list from '../conf.js'
 const update = [...new Set(list)]
 const all = JSON.parse(fs.readFileSync('box.json').toString())
-// const box = all.filter((item) => update.includes(item.box))
-const box = [all[5], all[7]]
+const box = all.filter((item) => update.includes(item.box))
+// const box = all
 
 fs.mkdir('output', async (err) => {
   if (err) {
