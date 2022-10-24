@@ -24,7 +24,7 @@ export async function get(box) {
         })
       }
     }
-    item.disk = disk
+    item.disk = list
   }
   return box
 }
