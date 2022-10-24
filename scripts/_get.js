@@ -143,9 +143,9 @@ export async function product(url) {
   return data
 }
 
-export async function downloader(disklink) {
+export async function downloader(diskLink) {
   const { page, browser } = await createBrowserContext()
-  await page.goto(disklink) // http://disk.yandex.ru/x
+  await page.goto(diskLink) // http://disk.yandex.ru/x
   await page.waitForSelector('#store-prefetch') //json data
 
   const fs = await page.evaluate(async () => {
