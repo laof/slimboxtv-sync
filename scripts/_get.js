@@ -145,7 +145,7 @@ export async function downloader(disklink) {
       }
 
       if (item.type == 'file') {
-        const body = ''
+        let body = ''
 
         try {
           body = JSON.stringify({
@@ -171,9 +171,10 @@ export async function downloader(disklink) {
     }, [])
 
     const loader = filename.map((item) => {
-      const payload = item.payload
-      Reflect.deleteProperty(item, 'payload')
       return new Promise((resolve) => {
+        const payload = item.payload
+        Reflect.deleteProperty(item, 'payload')
+
         try {
           fetch('https://disk.yandex.ru/public/api/download-url', {
             method: 'post',
