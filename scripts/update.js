@@ -26,7 +26,7 @@ fs.mkdir('output', async (err) => {
     item.disk = disk
   }
 
-  fs.writeFile('output/1024.json', JSON.stringify(box), () => {})
+  fs.writeFile('output/10241.json', JSON.stringify(box), () => {})
 
   // getData().then((res) => {
   //   const txt = table(res)
