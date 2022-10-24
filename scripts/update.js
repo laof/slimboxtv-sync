@@ -23,15 +23,19 @@ fs.mkdir('output', async (err) => {
           console.log(log)
           const { error, files } = await downloader(target.href)
           error.forEach((err) => console.log(log + ' error:' + err))
-          target.info = error.length ? [] : files
-          return error.length
+          target.files = error.length ? [] : files
+          return files.length
         })
       }
     }
     item.disk = disk
   }
 
-  fs.writeFile('output/10241.json', JSON.stringify(box), () => {})
+  fs.writeFile('output/10241.json', JSON.stringify(res), () => {})
+
+  fs.writeFile('output/README.md', table(box), () => {})
+
+  // fs.writeFile('output/10241.json', JSON.stringify(box), () => {})
 
   // getData().then((res) => {
   //   const txt = table(res)

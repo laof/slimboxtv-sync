@@ -1,1 +1,1 @@
-export default ['X96 X4', 'A95X F4']
+export default ['A95X F4']

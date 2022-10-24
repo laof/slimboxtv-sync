@@ -15,8 +15,8 @@ export function table(list) {
 
     for (let typeObj of data.disk) {
       const { type } = typeObj
-      for (let files of typeObj.links) {
-        for (let file of files.info) {
+      for (let files of typeObj.link) {
+        for (let file of files.files) {
           const { name, url, size, modified } = file
           const mb = (size / 1024 / 1024).toFixed(2) + 'M'
 
