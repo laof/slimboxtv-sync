@@ -47,15 +47,11 @@ export function local(data) {
 }
 
 export function table(list) {
-  const today = new Date().toLocaleString('zh-cn', {
-    timeZone: 'Asia/Shanghai'
-  })
-
-  const temp = ['更新于 ' + today]
+  const temp = []
 
   list.forEach((data) => {
     let item = [
-      `<tr><th colspan="4">${data.box}</th></tr>`,
+      `<tr><th colspan="4">${data.box}(更新于${data.update || ''})</th></tr>`,
       `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
     ]
 
@@ -90,10 +86,14 @@ export function table(list) {
   return readme
 }
 
-export function md(list) {
-  const today = new Date().toLocaleString('zh-cn', {
+export function localTime() {
+  return new Date().toLocaleString('zh-cn', {
     timeZone: 'Asia/Shanghai'
   })
+}
+
+export function md(list) {
+  const today = localTime()
 
   const temp = ['更新于 ' + today, '---']
 
