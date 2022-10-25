@@ -23,7 +23,6 @@ if (box.length) {
   //     console.log(e)
   //   }
   // })
-
   // const data = history.concat(...list)
   update(box)
 } else {
