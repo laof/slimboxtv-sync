@@ -5,6 +5,11 @@ const { history, box } = bootstrap()
 
 const list = []
 
+if (!box.length) {
+  console.log('no date')
+  return
+}
+
 try {
   await get(box)
 } catch (e) {
