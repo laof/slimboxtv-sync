@@ -16,7 +16,6 @@ export function jsonfile() {
     const data = readFileSync(daily, 'utf-8')
     return JSON.parse(data)
   }
-  writeFileSync(daily, JSON.stringify([]))
   return []
 }
 
