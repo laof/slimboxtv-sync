@@ -3,7 +3,7 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import { box } from '../conf/index.js'
 export * from '../conf/index.js'
 
-const { readme, daily, template } = _init()
+const { readme, daily, output, template } = _init()
 
 export function bootstrap() {
   const jsf = jsonfile()
@@ -22,7 +22,7 @@ export function jsonfile() {
 
 export function update(data) {
   writeFileSync(readme, table(data))
-  writeFileSync(daily, JSON.stringify(data))
+  writeFileSync(output + daily, JSON.stringify(data))
 }
 
 export function table(list) {
@@ -90,6 +90,7 @@ function _init() {
   return {
     template,
     readme,
+    output,
     daily
   }
 }
