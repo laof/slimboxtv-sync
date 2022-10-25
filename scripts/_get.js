@@ -150,7 +150,10 @@ export async function downloader(diskLink) {
   try {
     await page.waitForSelector('#store-prefetch') //json data
   } catch (e) {
-    await browser.close()
+    try {
+      await browser.close()
+    } catch (e) {}
+
     return { error: ['waitForSelector error =>' + e], files: [] }
   }
 
