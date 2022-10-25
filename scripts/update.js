@@ -8,8 +8,8 @@ const list = []
 try {
   await get(box)
 } catch (e) {
-  console.log(e)
   console.log('job failed!!!')
+  console.log(e)
 }
 
 box.forEach((item) => {
@@ -20,8 +20,8 @@ box.forEach((item) => {
       list.push(item)
     }
   } catch (e) {
-    console.log(e)
     console.log('update failed:' + item.box)
+    console.log(e)
   }
 })
 
