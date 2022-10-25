@@ -46,8 +46,8 @@ export async function get(box) {
 
     const view = [
       `============================== ${item.box} ${index + 1}/${box.length}==============================`,
-      `category: ${info.category} files: ${info.files}`,
-      `retry: ${info.retry} retry error: ${info.retryError} homepage error: ${info.homepageError}`,
+      `Category: ${info.category} Files: ${info.files}`,
+      `Retry: ${info.retry} Retry error: ${info.retryError} Homepage error: ${info.homepageError}`,
       '============================== end =============================='
     ]
 
