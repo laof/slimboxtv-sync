@@ -1,7 +1,7 @@
 import { get } from './_get.js'
-import { localTime, readme, update } from './_helper.js'
+import { update, bootstrap } from './_helper.js'
 
-const { history, box } = update()
+const { history, box } = bootstrap()
 
 const list = []
 
@@ -16,7 +16,6 @@ box.forEach((item) => {
   try {
     const uri = item.disk[0].link[0].files[0].url
     if (uri.startsWith('https://')) {
-      item.update = localTime()
       list.push(item)
     }
   } catch (e) {
@@ -26,4 +25,4 @@ box.forEach((item) => {
 })
 
 const data = history.concat(...list)
-readme(data)
+update(data)

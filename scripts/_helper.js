@@ -3,55 +3,34 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import { box } from '../conf/index.js'
 export * from '../conf/index.js'
 
-const output = 'output'
-const hidr = 'history'
-const today = hidr + '/' + current() + '.json'
+const { readme, daily, template } = _init()
 
-if (!existsSync(output)) {
-  mkdirSync(output)
+export function bootstrap() {
+  const jsf = jsonfile()
+  const arr = box.filter((item) => !jfs.find((o) => o.box == item.box))
+  return { history: jsf, box: arr }
 }
 
-export function update() {
-  const list = history()
-  const newbox = box.filter((item) => !list.find((obj) => obj.box == item.box))
-  return { history: list, box: newbox }
-}
-
-export function history() {
-  if (existsSync(today)) {
-    try {
-      const data = readFileSync(today, 'utf-8')
-      return JSON.parse(data)
-    } catch (e) {
-      return []
-    }
+export function jsonfile() {
+  if (existsSync(daily)) {
+    const data = readFileSync(daily, 'utf-8')
+    return JSON.parse(data)
   }
-  writeFileSync(today, '')
+  writeFileSync(daily, JSON.stringify([]))
   return []
 }
 
-export function current() {
-  const date = new Date()
-  const arr = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
-  return arr.join('_')
-}
-
-export function readme(data) {
-  writeFileSync('output/README.md', table(data))
-  mkdirSync(output + '/' + hidr)
-  writeFileSync(output + '/' + today, JSON.stringify(data))
-}
-
-export function local(data) {
-  writeFileSync('output/local.md', table(data))
+export function update(data) {
+  writeFileSync(readme, table(data))
+  writeFileSync(daily, JSON.stringify(data))
 }
 
 export function table(list) {
-  const temp = []
+  const arr = []
 
   list.forEach((data) => {
     let item = [
-      `<tr><th colspan="4">${data.box}  (更新于${data.update})</th></tr>`,
+      `<tr><th colspan="4">${data.box}  (更新于${localTime()})</th></tr>`,
       `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
     ]
 
@@ -74,16 +53,15 @@ export function table(list) {
       }
     }
 
-    temp.push(`<table>${item.join('')}</table>`)
+    arr.push(`<table>${item.join('')}</table>`)
   })
 
   if (!list.length) {
-    temp.push('Oh~ Sorry, Job Failed.')
+    arr.push('Oh~ Sorry, Job Failed.')
   }
 
-  const view = readFileSync('view/README.md', 'utf-8')
-  const readme = view.replace('<!--files_table-->', temp.join('<br/>'))
-  return readme
+  const temp = readFileSync(template, 'utf-8')
+  return temp.replace('<!--files_table-->', arr.join('<br/>'))
 }
 
 export function localTime() {
@@ -92,36 +70,26 @@ export function localTime() {
   })
 }
 
-export function md(list) {
-  const today = localTime()
+function _init() {
+  const d = new Date()
+  const today = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('_')
 
-  const temp = ['更新于 ' + today, '---']
+  const output = 'output',
+    hsy = 'history',
+    sep = '/',
+    daily = hsy + sep + today + '.json',
+    readme = output + sep + 'README.md',
+    template = 'view/README.md',
+    history = output + sep + hsy
 
-  list.forEach((data) => {
-    let item = [
-      `<img src="${data.img}" width='20%'>\n`,
-      `| [${data.box}](${data.homepage}) | 大小 | 发布日期 |`,
-      '| ---- | ---- | ---- |'
-    ]
+  if (!existsSync(output)) {
+    mkdirSync(output)
+    mkdirSync(history)
+  }
 
-    for (let typeObj of data.disk) {
-      const { type } = typeObj
-      for (let files of typeObj.links) {
-        for (let file of files.info) {
-          const { name, url, size, modified } = file
-          const mb = (size / 1024 / 1024).toFixed(2) + 'M'
-
-          item.push(
-            `| [${name} ${type}](https://laof.github.io/x96x4/#${url}) | ${mb} | ${modified} |`
-          )
-        }
-      }
-    }
-
-    temp.push(item.join('\n'))
-  })
-
-  const view = readFileSync('view/README.md', 'utf-8')
-  const readme = view.replace('<!--files_table-->', temp.join('\n\n'))
-  return readme
+  return {
+    template,
+    readme,
+    daily
+  }
 }
