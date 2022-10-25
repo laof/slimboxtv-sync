@@ -35,6 +35,11 @@ export async function get(box) {
           if (!error.length) {
             target.files = files
             item.latestUpdate = new Date().getTime()
+            console.log(item.latestUpdate)
+            await sleep(10)
+            console.log(item.latestUpdate)
+            await sleep(10)
+            console.log(item.latestUpdate)
           }
 
           info.files += target.files.length
