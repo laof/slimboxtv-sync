@@ -24,6 +24,4 @@ export const box = list.reduce((arr, name) => {
   return arr
 }, old)
 
-console.log(box)
-
 // export const skip = metadata.filter((item) => !list.includes(item.box))

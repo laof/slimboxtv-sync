@@ -37,8 +37,8 @@ export function table(list) {
 
     let ref = '--'
     if (data.latestUpdate) {
-      const sh = shanghaiTimeZone(new Date(data.latestUpdate))
-      ref = localTime(sh)
+      // const sh = shanghaiTimeZone(new Date(data.latestUpdate))
+      ref = formatShanghai(new Date(data.latestUpdate))
     }
 
     let item = [
@@ -76,7 +76,7 @@ export function table(list) {
   return temp.replace('<!--files_table-->', arr.join('<br/>'))
 }
 
-export function localTime(date = new Date()) {
+export function formatShanghai(date = new Date()) {
   return date.toLocaleString('zh-cn', {
     timeZone: 'Asia/Shanghai'
   })
@@ -93,9 +93,7 @@ export function shanghaiTimeZone(date = new Date()) {
 
 export function fixTimezoneOffset(time = new Date()) {
   const date = new Date(time)
-  console.log(date.getTimezoneOffset())
   date.setHours(date.getHours() + date.getTimezoneOffset() / 60)
-  console.log(localTime(date))
   return date
 }
 
