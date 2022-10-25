@@ -34,12 +34,8 @@ export async function get(box) {
 
           if (!error.length) {
             target.files = files
+            // 1666695142524
             item.latestUpdate = new Date().getTime()
-            console.log(item.latestUpdate)
-            await sleep(10)
-            console.log(item.latestUpdate)
-            await sleep(10)
-            console.log(item.latestUpdate)
           }
 
           info.files += target.files.length

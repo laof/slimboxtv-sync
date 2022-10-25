@@ -37,7 +37,7 @@ export function table(list) {
 
     let ref = '--'
     if (data.latestUpdate) {
-      const sh = shanghaiTimeZone(data.latestUpdate)
+      const sh = shanghaiTimeZone(new Date(data.latestUpdate))
       ref = localTime(sh)
     }
 
