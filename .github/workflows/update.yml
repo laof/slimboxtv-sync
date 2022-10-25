@@ -53,7 +53,6 @@ jobs:
         token: ${{ secrets.UPDATE }}
         folder: output
         repository-name: laof/slimboxtv
-        target-folder: guide
         branch: main
         clean: false
         force: false
