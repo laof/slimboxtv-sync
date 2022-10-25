@@ -22,7 +22,7 @@ export function jsonfile() {
 
 export function update(data) {
   writeFileSync(readme, table(data))
-  writeFileSync(output + daily, JSON.stringify(data))
+  writeFileSync(output + sep + daily, JSON.stringify(data))
 }
 
 export function table(list) {
@@ -91,6 +91,7 @@ function _init() {
     template,
     readme,
     output,
+    sep,
     daily
   }
 }
