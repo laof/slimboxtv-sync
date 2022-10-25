@@ -72,7 +72,7 @@ export function table(list) {
     arr.push('Oh~ Sorry, Job Failed.')
   }
 
-  const temp = readFileSync(template, 'utf-8')
+  const temp = readFileSync('view/README.md', 'utf-8')
   return temp.replace('<!--files_table-->', arr.join('<br/>'))
 }
 
