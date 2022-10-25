@@ -83,7 +83,7 @@ function _init() {
 
   if (!existsSync(output)) {
     mkdirSync(output)
-    mkdirSync(output + sep + hsy)
+    mkdirSync(output + sep + _history)
   }
 
   return {
