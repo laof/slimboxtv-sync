@@ -178,7 +178,7 @@ export async function downloader(diskLink) {
   await page.goto(diskLink) // http://disk.yandex.ru/x
 
   // await page.setDefaultNavigationTimeout(30000)
-  await page.waitForNavigation({ timeout: 1000 * 10 })
+  // await page.waitForNavigation({ timeout: 1000 * 10 })
 
   try {
     await page.waitForSelector('#store-prefetch') //json data
