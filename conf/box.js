@@ -5,7 +5,7 @@ export default [
   // 'X96 X4',
   // 'X98 mini',
   // 'Transpeed AV1',
-  // 'Tanix W2',
+  'Tanix W2',
   'Tanix X4',
   // 'X96Max Plus Ultra',
   // 'Kingnovel X10 MAX',
