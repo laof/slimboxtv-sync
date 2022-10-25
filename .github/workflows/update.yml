@@ -41,14 +41,14 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: site
-        path: output
+        path: guide
 
     - uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
         token: ${{ secrets.UPDATE }}
-        folder: output
+        folder: guide
         repository-name: laof/slimboxtv
-        target-folder: output
+        target-folder: guide
         branch: main
         clean: false
         force: false
