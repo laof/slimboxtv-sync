@@ -50,6 +50,6 @@ jobs:
         repository-name: laof/slimboxtv
         # target-folder: output
         branch: main
-        clean: true
+        clean: false
         force: false
         commit-message: update list info
