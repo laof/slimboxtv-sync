@@ -1,9 +1,7 @@
 import { get } from './_get.js'
-import { update, bootstrap } from './_helper.js'
+import { update, box, dev } from './_helper.js'
 
-const { history, box } = bootstrap()
-
-const list = []
+// const list = []
 
 if (box.length) {
   try {
@@ -13,20 +11,21 @@ if (box.length) {
     console.log(e)
   }
 
-  box.forEach((item) => {
-    try {
-      const uri = item.disk[0].link[0].files[0].url
-      if (uri.startsWith('https://')) {
-        list.push(item)
-      }
-    } catch (e) {
-      console.log('update failed:' + item.box)
-      console.log(e)
-    }
-  })
+  // box.forEach((item) => {
+  //   try {
+  //     const uri = item.disk[0].link[0].files[0].url
+  //     if (uri.startsWith('https://')) {
+  //       item.update = new Date().getTime()
+  //       list.push(item)
+  //     }
+  //   } catch (e) {
+  //     console.log('update failed:' + item.box)
+  //     console.log(e)
+  //   }
+  // })
 
-  const data = history.concat(...list)
-  update(data)
+  // const data = history.concat(...list)
+  update(box)
 } else {
   console.log('no data')
 }

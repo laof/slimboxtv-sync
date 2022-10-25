@@ -2,7 +2,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "update": "node scripts/update.js",
+    "update": "node scripts/update.js --prod",
+    "dev": "node scripts/update.js",
     "test": "node scripts/test.js"
   },
   "dependencies": {

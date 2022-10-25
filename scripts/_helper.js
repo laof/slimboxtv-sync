@@ -3,33 +3,43 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import { box } from '../conf/index.js'
 export * from '../conf/index.js'
 
-const { readme, daily, history, template } = _init()
+export const dev = process.argv[2] != '--prod'
+
+const jsonfile = 'conf/data.json'
 
 export function bootstrap() {
-  const jsf = jsonfile()
+  const jsf = cache()
   const arr = box.filter((item) => !jsf.find((o) => o.box == item.box))
   return { history: jsf, box: arr }
 }
 
-export function jsonfile() {
-  if (existsSync(history)) {
-    const data = readFileSync(history, 'utf-8')
+export function cache() {
+  if (existsSync(jsonfile)) {
+    const data = readFileSync(jsonfile, 'utf-8')
     return JSON.parse(data)
   }
   return []
 }
 
 export function update(data) {
-  writeFileSync(readme, table(data))
-  writeFileSync(daily, JSON.stringify(data))
+  data.sort((a, b) => b.latestUpdate - a.latestUpdate)
+  writeFileSync('output/README.md', table(data))
+  writeFileSync('output/' + jsonfile, JSON.stringify(data))
 }
 
 export function table(list) {
   const arr = []
 
   list.forEach((data) => {
+    if (!data.disk || !data.disk.length) {
+      return
+    }
+
+    const sh = shanghaiTimeZone(data.latestUpdate)
+    const local = localTime(sh)
+
     let item = [
-      `<tr><th colspan="4">${data.box}  (更新于${localTime()})</th></tr>`,
+      `<tr><th colspan="4">${data.box}  (更新于${local})</th></tr>`,
       `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
     ]
 
@@ -63,34 +73,30 @@ export function table(list) {
   return temp.replace('<!--files_table-->', arr.join('<br/>'))
 }
 
-export function localTime() {
-  return new Date().toLocaleString('zh-cn', {
+export function localTime(date = new Date()) {
+  return date.toLocaleString('zh-cn', {
     timeZone: 'Asia/Shanghai'
   })
 }
 
-function _init() {
-  const d = new Date()
-  const today = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('_')
-
-  const output = 'output',
-    _history = 'history',
-    sep = '/',
-    history = _history + sep + today + '.json',
-    readme = output + sep + 'README.md',
-    template = 'view/README.md',
-    daily = output + sep + history
-
-  if (!existsSync(output)) {
-    mkdirSync(output)
-    mkdirSync(output + sep + _history)
+export function shanghaiTimeZone(date = new Date()) {
+  if (dev) {
+    return date.getTime()
   }
+  const currTimestamp = date.getTime()
+  const targetTimestamp = currTimestamp + 8 * 3600 * 1000
+  return targetTimestamp
+}
 
-  return {
-    template,
-    readme,
-    output,
-    history,
-    daily
-  }
+export function fixTimezoneOffset(time = new Date()) {
+  const date = new Date(time)
+  console.log(date.getTimezoneOffset())
+  date.setHours(date.getHours() + date.getTimezoneOffset() / 60)
+  console.log(localTime(date))
+  return date
+}
+
+if (!existsSync('output')) {
+  mkdirSync('output')
+  mkdirSync('output/conf')
 }

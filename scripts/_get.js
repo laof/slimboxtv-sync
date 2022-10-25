@@ -1,52 +1,57 @@
 import puppeteer from 'puppeteer'
 
+function expire(time) {
+  const n = new Date().getTime() - time
+
+  return n / (1000 * 60 * 60) > 24 * 2 // 2 days
+}
+
 export async function get(box) {
   for (const [index, item] of box.entries()) {
-    console.log(`[${index + 1}/${box.length}]`, item.box, item.homepage)
-    await sleep(3)
-    const { error, list } = await product(item.homepage)
+    if (!item.latestUpdate || expire(item.latestUpdate)) {
+      const pro = `[${index + 1}/${box.length}]`
+      console.log(pro, item.box, item.homepage)
+      await sleep(3)
+      const { error, list } = await product(item.homepage)
 
-    error.forEach((err) => console.log('[error]', err))
+      error.forEach((err) => console.log('[error]', err))
 
-    const info = {
-      category: 0,
-      files: 0,
-      homepageError: error.length,
-      retry: 0,
-      retryError: 0
-    }
+      const info = {
+        category: 0,
+        files: 0,
+        homepageError: error.length,
+        downloaderError: 0
+      }
 
-    for (const category of list) {
-      info.category += 1
-      for (const target of category.link) {
-        await retry(3, async (i) => {
-          console.log(`downloader[${i}] ${target.href}`)
+      for (const category of list) {
+        info.category += 1
+        for (const target of category.link) {
+          console.log(`downloader ${target.href}`)
           await sleep(3)
           const { error, files } = await downloader(target.href)
 
-          info.retry += 1
-
           error.forEach((err) => console.log('[error]', err))
 
-          target.files = error.length ? [] : files
+          if (!error.length) {
+            target.files = files
+            item.latestUpdate = new Date().getTime()
+          }
 
           info.files += target.files.length
-          info.retryError += error.length
-
-          return target.files.length
-        })
+          info.downloaderError += error.length
+        }
       }
+
+      const view = [
+        `===== ${item.box} ${pro} =====`,
+        `Category: ${info.category} Files: ${info.files}`,
+        `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`
+      ]
+
+      console.log(view.join('\n'))
+
+      item.disk = list
     }
-
-    const view = [
-      `===== ${item.box} ${index + 1}/${box.length}=====`,
-      `Category: ${info.category} Files: ${info.files}`,
-      `Retry: ${info.retry} Retry error: ${info.retryError} Homepage error: ${info.homepageError}`
-    ]
-
-    console.log(view.join('\n'))
-
-    item.disk = list
   }
   return box
 }
@@ -171,12 +176,12 @@ export async function downloader(diskLink) {
 
   try {
     await page.waitForSelector('#store-prefetch') //json data
-  } catch (e) {
+  } catch (err) {
     try {
       await browser.close()
     } catch (e) {}
 
-    return { error: ['waitForSelector error =>' + e], files: [] }
+    return { error: [err], files: [] }
   }
 
   const fs = await page.evaluate(async () => {
