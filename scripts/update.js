@@ -5,29 +5,28 @@ const { history, box } = bootstrap()
 
 const list = []
 
-if (!box.length) {
-  console.log('no date')
-  return
-}
-
-try {
-  await get(box)
-} catch (e) {
-  console.log('job failed!!!')
-  console.log(e)
-}
-
-box.forEach((item) => {
+if (box.length) {
   try {
-    const uri = item.disk[0].link[0].files[0].url
-    if (uri.startsWith('https://')) {
-      list.push(item)
-    }
+    await get(box)
   } catch (e) {
-    console.log('update failed:' + item.box)
+    console.log('job failed!!!')
     console.log(e)
   }
-})
 
-const data = history.concat(...list)
-update(data)
+  box.forEach((item) => {
+    try {
+      const uri = item.disk[0].link[0].files[0].url
+      if (uri.startsWith('https://')) {
+        list.push(item)
+      }
+    } catch (e) {
+      console.log('update failed:' + item.box)
+      console.log(e)
+    }
+  })
+
+  const data = history.concat(...list)
+  update(data)
+} else {
+  console.log('no data')
+}
