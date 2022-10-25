@@ -11,19 +11,48 @@ export async function get(box) {
       console.log(e.join(' => '))
     })
 
+    const info = {
+      category: 0,
+      files: 0,
+      homepageError: error.length,
+      downloaderError: []
+    }
+
     for (const category of list) {
+      info.category += 1
       for (const target of category.link) {
         await retry(3, async (i) => {
           const message = `downloader retry ${i}: ${item.box} ${target.href}`
           console.log(message)
           await sleep(5)
           const { error, files } = await downloader(target.href)
+          info.files += target.files.length
+          info.downloaderError.push(`${i}downloader: ${error.length}`)
           error.forEach((err) => console.log(message + ' error:' + err))
           target.files = error.length ? [] : files
           return files.length
         })
       }
     }
+
+    const view = [
+      `========== ${item.box} ==========`,
+      `Category: ${info.category}`,
+      `Files: ${info.files}`,
+      `Homepage error: ${info.homepageError}`
+    ]
+
+    const de = 'Downloader error: '
+    if (info.downloaderError.length) {
+      view.push(de, ...info.downloaderError.map((err) => '---' + err))
+    } else {
+      view.push(`${de}0`)
+    }
+
+    view.push('========== end ==========')
+
+    console.log(view.join('\n'))
+
     item.disk = list
   }
   return box

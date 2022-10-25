@@ -23,16 +23,13 @@ import { history } from './_helper.js'
 // let f = await Promise.all([null, Promise.resolve(undefined), null])
 // f = f.filter((o) => o)
 // console.log(f)
+const obj = { name: { xx: 1 } }
 
-for (let i of [3, 3]) {
-  const aa = 22
-  console.log(aa)
-  for (let i of [3, 3]) {
-    const aa = 23
-    console.log(aa)
-    for (let i of [3, 3]) {
-      const aa = 24
-      console.log(aa)
-    }
-  }
-}
+obj.name.xx += 1
+obj.name.xx += 1
+obj.name.xx += 1
+obj.name.xx += 1
+
+var d = [3, 3, 3]
+d.push(6666,...[6, 7])
+console.log(d)
