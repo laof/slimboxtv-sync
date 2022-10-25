@@ -27,7 +27,7 @@ import { history } from './_helper.js'
 
 // obj.name.xx += 1
 // obj.name.xx += 1
-// obj.name.xx += 1
+// obj.name.x
 // obj.name.xx += 1
 
 // var d = [3, 3, 3]
