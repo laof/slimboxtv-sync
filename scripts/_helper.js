@@ -7,7 +7,7 @@ const { readme, daily, template } = _init()
 
 export function bootstrap() {
   const jsf = jsonfile()
-  const arr = box.filter((item) => !jfs.find((o) => o.box == item.box))
+  const arr = box.filter((item) => !jsf.find((o) => o.box == item.box))
   return { history: jsf, box: arr }
 }
 

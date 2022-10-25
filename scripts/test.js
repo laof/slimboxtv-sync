@@ -1,41 +1,29 @@
-import { mkdirSync } from 'fs'
-import { sleep, retry } from './_get.js'
-import { update } from './_helper.js'
+import { get } from './_get.js'
+import { update, bootstrap, box } from './_helper.js'
 
-// console.log(skip)
+const { history } = bootstrap()
 
-// await new Promise((resolve) => {
-//   // return resolve('fdasf')
-// })
-//   .then((res) => {
-//     console.log('res1')
-//     console.log(res)
-//     return 'e'
-//   })
-//   .then((res) => {
-//     console.log('res2')
-//     console.log(re3s)
-//   })
-//   .catch((e) => {
-//     console.log('e===', e)
-//   })
+const list = []
 
-// let f = await Promise.all([null, Promise.resolve(undefined), null])
-// f = f.filter((o) => o)
-// console.log(f)
-// const obj = { name: { xx: 1 } }
-
-// obj.name.xx += 1
-// obj.name.xx += 1
-// obj.name.x
-// obj.name.xx += 1
-
-// var d = [3, 3, 3]
-// d.push(6666,...[6, 7])
-// console.log(d)
-
-// new Date
-
-for (let [index, elem] of [].entries()) {
-  console.log(index, elem)
+try {
+  await get([box[0]])
+} catch (e) {
+  console.log('job failed!!!')
+  console.log(e)
 }
+
+;[box[0]].forEach((item) => {
+  try {
+    const uri = item.disk[0].link[0].files[0].url
+    if (uri.startsWith('https://')) {
+      list.push(item)
+    }
+  } catch (e) {
+    console.log('update failed:' + item.box)
+    console.log(e)
+  }
+})
+
+// const data = history.concat(...list)
+// console.log(list)
+update(list)

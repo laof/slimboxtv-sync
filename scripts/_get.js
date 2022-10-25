@@ -2,14 +2,11 @@ import puppeteer from 'puppeteer'
 
 export async function get(box) {
   for (const [index, item] of box.entries()) {
-    console.log(item.box, item.homepage)
+    console.log(`[${index + 1}/${box.length}]`, item.box, item.homepage)
     await sleep(3)
     const { error, list } = await product(item.homepage)
 
-    error.forEach((err) => {
-      const e = ['[error]', item.box, item.homepage, err]
-      console.log(e.join(' => '))
-    })
+    error.forEach((err) => console.log('[error]', err))
 
     const info = {
       category: 0,
@@ -23,17 +20,14 @@ export async function get(box) {
       info.category += 1
       for (const target of category.link) {
         await retry(3, async (i) => {
-          const message = `${item.box} ${target.href} retry${i}`
-          console.log(message)
-          await sleep(5)
+          console.log(`downloader[${i}] ${target.href}`)
+          await sleep(3)
           const { error, files } = await downloader(target.href)
 
           info.retry += 1
 
-          error.forEach((err) => {
-            const e = ['[error]', message, err]
-            console.log(e.join(' => '))
-          })
+          error.forEach((err) => console.log('[error]', err))
+
           target.files = error.length ? [] : files
 
           info.files += target.files.length
@@ -45,10 +39,9 @@ export async function get(box) {
     }
 
     const view = [
-      `============================== ${item.box} ${index + 1}/${box.length}==============================`,
+      `===== ${item.box} ${index + 1}/${box.length}=====`,
       `Category: ${info.category} Files: ${info.files}`,
-      `Retry: ${info.retry} Retry error: ${info.retryError} Homepage error: ${info.homepageError}`,
-      '============================== end =============================='
+      `Retry: ${info.retry} Retry error: ${info.retryError} Homepage error: ${info.homepageError}`
     ]
 
     console.log(view.join('\n'))
