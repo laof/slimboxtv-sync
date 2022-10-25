@@ -45,7 +45,8 @@ export async function get(box) {
 
       const view = [
         `Category: ${info.category} Files: ${info.files}`,
-        `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`
+        `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`,
+        '\n'
       ]
 
       console.log(view.join('\n'))
