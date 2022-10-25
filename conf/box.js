@@ -33,7 +33,7 @@ export default [
   'X92',
   'Beelink GT-King Pro',
   'H96 Pro plus',
-  'Ugoos AM3',
+  // 'Ugoos AM3', xxxx
   // 'Mecool BB2 and Pro',
   // 'X96 Max',
   // 'MECOOL KIII Pro',
@@ -67,7 +67,7 @@ export default [
   // 'Beelink GT1 Mini2',
   // 'A95X MAX II',
   // 'S9 Max',
-  'IE X3 Air',
+  // 'IE X3 Air', xxx
   'AX95 DB',
   'A95X F3, Air, Slim',
   'Magicsee N6 Plus',

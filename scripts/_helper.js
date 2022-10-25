@@ -84,7 +84,7 @@ export function formatShanghai(date = new Date()) {
 
 export function shanghaiTimeZone(date = new Date()) {
   if (dev) {
-    return date.getTime()
+    return new Date(date)
   }
   const currTimestamp = date.getTime()
   const targetTimestamp = currTimestamp + 8 * 3600 * 1000
