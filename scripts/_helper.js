@@ -88,7 +88,7 @@ export function shanghaiTimeZone(date = new Date()) {
   }
   const currTimestamp = date.getTime()
   const targetTimestamp = currTimestamp + 8 * 3600 * 1000
-  return targetTimestamp
+  return new Date(targetTimestamp)
 }
 
 export function fixTimezoneOffset(time = new Date()) {
