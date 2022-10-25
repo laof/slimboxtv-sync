@@ -38,7 +38,7 @@ export async function get(box) {
             item.latestUpdate = new Date().getTime()
           }
 
-          info.files += target.files.length
+          info.files += files.length
           info.downloaderError += error.length
         }
       }
