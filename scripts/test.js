@@ -1,6 +1,6 @@
 import { mkdirSync } from 'fs'
 import { sleep, retry } from './_get.js'
-import { dailyList } from './_helper.js'
+import { update } from './_helper.js'
 
 // console.log(skip)
 
