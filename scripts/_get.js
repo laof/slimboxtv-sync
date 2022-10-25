@@ -26,11 +26,14 @@ export async function get(box) {
           console.log(message)
           await sleep(5)
           const { error, files } = await downloader(target.href)
-          info.files += target.files.length
-          info.downloaderError.push(`${i}downloader: ${error.length}`)
+
           error.forEach((err) => console.log(message + ' error:' + err))
           target.files = error.length ? [] : files
-          return files.length
+
+          info.files += target.files.length
+          info.downloaderError.push(`${i}downloader: ${error.length}`)
+
+          return target.files.length
         })
       }
     }
