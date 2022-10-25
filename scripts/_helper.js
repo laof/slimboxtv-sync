@@ -35,11 +35,14 @@ export function table(list) {
       return
     }
 
-    const sh = shanghaiTimeZone(data.latestUpdate)
-    const local = localTime(sh)
+    let ref = '--'
+    if (data.latestUpdate) {
+      const sh = shanghaiTimeZone(data.latestUpdate)
+      ref = localTime(sh)
+    }
 
     let item = [
-      `<tr><th colspan="4">${data.box}  (更新于${local})</th></tr>`,
+      `<tr><th colspan="4">${data.box}  (更新于 ${ref})</th></tr>`,
       `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
     ]
 

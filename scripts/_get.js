@@ -43,7 +43,6 @@ export async function get(box) {
       }
 
       const view = [
-        `===== ${item.box} ${pro} =====`,
         `Category: ${info.category} Files: ${info.files}`,
         `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`
       ]
