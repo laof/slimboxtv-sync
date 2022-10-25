@@ -46,10 +46,10 @@ export function table(list) {
       `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
     ]
 
-    for (let typeObj of data.disk) {
-      const { type } = typeObj
-      for (let files of typeObj.link) {
-        for (let file of files.files) {
+    for (let category of data.disk) {
+      const { type } = category
+      for (let link of category.link) {
+        for (let file of link.files) {
           const { name, url, size, modified } = file
           const mb = (size / 1024 / 1024).toFixed(2) + 'M'
 

@@ -32,7 +32,9 @@ export async function get(box) {
 
           error.forEach((err) => console.log('[error]', err))
 
-          if (!error.length) {
+          if (error.length) {
+            target.files = []
+          } else {
             target.files = files
             // 1666695142524
             item.latestUpdate = new Date().getTime()
@@ -174,6 +176,9 @@ export async function product(url) {
 export async function downloader(diskLink) {
   const { page, browser } = await createBrowserContext()
   await page.goto(diskLink) // http://disk.yandex.ru/x
+
+  // await page.setDefaultNavigationTimeout(30000)
+  await page.setDefaultNavigationTimeout(15000)
 
   try {
     await page.waitForSelector('#store-prefetch') //json data
