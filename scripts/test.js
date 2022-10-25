@@ -25,5 +25,5 @@ try {
 })
 
 // const data = history.concat(...list)
-// console.log(list)
+//  console.log(list)
 update(list)
