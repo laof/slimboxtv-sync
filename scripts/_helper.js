@@ -3,7 +3,7 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import { box } from '../conf/index.js'
 export * from '../conf/index.js'
 
-const { readme, daily, output, template } = _init()
+const { readme, daily, output, template, sep } = _init()
 
 export function bootstrap() {
   const jsf = jsonfile()
