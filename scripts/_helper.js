@@ -12,8 +12,8 @@ export function bootstrap() {
 }
 
 export function jsonfile() {
-  if (existsSync(daily)) {
-    const data = readFileSync(daily, 'utf-8')
+  if (existsSync(history)) {
+    const data = readFileSync(history, 'utf-8')
     return JSON.parse(data)
   }
   return []
@@ -21,7 +21,7 @@ export function jsonfile() {
 
 export function update(data) {
   writeFileSync(readme, table(data))
-  writeFileSync(history, JSON.stringify(data))
+  writeFileSync(daily, JSON.stringify(data))
 }
 
 export function table(list) {
@@ -74,12 +74,12 @@ function _init() {
   const today = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('_')
 
   const output = 'output',
-    hsy = 'history',
+    _history = 'history',
     sep = '/',
-    daily = hsy + sep + today + '.json',
+    history = _history + sep + today + '.json',
     readme = output + sep + 'README.md',
     template = 'view/README.md',
-    history = output + sep + daily
+    daily = output + sep + _history
 
   if (!existsSync(output)) {
     mkdirSync(output)
