@@ -23,13 +23,19 @@ import { history } from './_helper.js'
 // let f = await Promise.all([null, Promise.resolve(undefined), null])
 // f = f.filter((o) => o)
 // console.log(f)
-const obj = { name: { xx: 1 } }
+// const obj = { name: { xx: 1 } }
 
-obj.name.xx += 1
-obj.name.xx += 1
-obj.name.xx += 1
-obj.name.xx += 1
+// obj.name.xx += 1
+// obj.name.xx += 1
+// obj.name.xx += 1
+// obj.name.xx += 1
 
-var d = [3, 3, 3]
-d.push(6666,...[6, 7])
-console.log(d)
+// var d = [3, 3, 3]
+// d.push(6666,...[6, 7])
+// console.log(d)
+
+// new Date
+
+for (let [index, elem] of [].entries()) {
+  console.log(index, elem)
+}

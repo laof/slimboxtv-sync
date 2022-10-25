@@ -1,13 +1,13 @@
 import puppeteer from 'puppeteer'
 
 export async function get(box) {
-  for (const item of box) {
+  for (const [index, item] of box.entries()) {
     console.log(item.box, item.homepage)
     await sleep(3)
     const { error, list } = await product(item.homepage)
 
     error.forEach((err) => {
-      const e = [item.box, item.homepage, err]
+      const e = ['[error]', item.box, item.homepage, err]
       console.log(e.join(' => '))
     })
 
@@ -15,23 +15,29 @@ export async function get(box) {
       category: 0,
       files: 0,
       homepageError: error.length,
-      downloaderError: []
+      retry: 0,
+      retryError: 0
     }
 
     for (const category of list) {
       info.category += 1
       for (const target of category.link) {
         await retry(3, async (i) => {
-          const message = `downloader retry ${i}: ${item.box} ${target.href}`
+          const message = `${item.box} ${target.href} retry${i}`
           console.log(message)
           await sleep(5)
           const { error, files } = await downloader(target.href)
 
-          error.forEach((err) => console.log(message + ' error:' + err))
+          info.retry += 1
+
+          error.forEach((err) => {
+            const e = ['[error]', message, err]
+            console.log(e.join(' => '))
+          })
           target.files = error.length ? [] : files
 
           info.files += target.files.length
-          info.downloaderError.push(`${i}downloader: ${error.length}`)
+          info.retryError += error.length
 
           return target.files.length
         })
@@ -39,20 +45,11 @@ export async function get(box) {
     }
 
     const view = [
-      `========== ${item.box} ==========`,
-      `Category: ${info.category}`,
-      `Files: ${info.files}`,
-      `Homepage error: ${info.homepageError}`
+      `============================== ${item.box} ${index + 1}/${box.length}==============================`,
+      `category: ${info.category} files: ${info.files}`,
+      `retry: ${info.retry} retry error: ${info.retryError} homepage error: ${info.homepageError}`,
+      '============================== end =============================='
     ]
-
-    const de = 'Downloader error: '
-    if (info.downloaderError.length) {
-      view.push(de, ...info.downloaderError.map((err) => '---' + err))
-    } else {
-      view.push(`${de}0`)
-    }
-
-    view.push('========== end ==========')
 
     console.log(view.join('\n'))
 
