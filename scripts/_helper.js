@@ -79,7 +79,7 @@ function _init() {
     history = _history + sep + today + '.json',
     readme = output + sep + 'README.md',
     template = 'view/README.md',
-    daily = output + sep + _history
+    daily = output + sep + history
 
   if (!existsSync(output)) {
     mkdirSync(output)
