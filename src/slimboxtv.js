@@ -48,7 +48,7 @@ export async function homepage(title, item) {
   for (const category of list) {
     info.category += 1
     for (const target of category.link) {
-      console.log(title, `downloader ${target.href}`)
+      console.log(title, `Disk ${target.href}`)
       // await sleep(3)
       const { error, files } = await downloader(target.href)
       error.forEach((err) => console.log('[error]', err))
@@ -58,7 +58,7 @@ export async function homepage(title, item) {
         // 1666695142524
         item.latestUpdate = new Date().getTime()
       } else {
-        target.files = target.files || []
+        target.files = []
       }
 
       info.files += files.length
@@ -66,14 +66,16 @@ export async function homepage(title, item) {
     }
   }
 
+  if (info.files.length) {
+    item.disk = list
+  }
+
   const view = [
     `Category: ${info.category} Files: ${info.files}`,
-    `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`
+    `Disk error: ${info.downloaderError} Homepage error: ${info.homepageError}`
   ]
 
   console.log(view.join('\n'))
-
-  item.disk = list
 }
 
 export function sleep(ms = 1) {
