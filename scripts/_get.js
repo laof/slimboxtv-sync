@@ -43,12 +43,12 @@ export async function get(box) {
         const { error, files } = await downloader(target.href)
         error.forEach((err) => console.log('[error]', err))
 
-        if (error.length) {
-          target.files = []
-        } else {
+        if (files.length) {
           target.files = files
           // 1666695142524
           item.latestUpdate = new Date().getTime()
+        } else {
+          target.files = []
         }
 
         info.files += files.length
