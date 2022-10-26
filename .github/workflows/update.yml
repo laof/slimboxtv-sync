@@ -1,4 +1,4 @@
-name: update info
+name: update
 
 on: 
   push:
@@ -8,9 +8,9 @@ on:
 
 jobs:
   build:
-    name: update files
+    name: update
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'ok')"
+    if: "contains(github.event.head_commit.message, 'update')"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

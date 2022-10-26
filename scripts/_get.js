@@ -1,60 +1,69 @@
 import puppeteer from 'puppeteer'
 
 function expire(time) {
-  const n = new Date().getTime() - time
-
-  return n / (1000 * 60 * 60) > 24 * 2 // 2 days
+  if (!time) return true
+  try {
+    const n = new Date().getTime() - time
+    return n / (1000 * 60 * 60) > 24 * 2 // 2 days
+  } catch (e) {
+    return true
+  }
 }
 
 export async function get(box) {
+  const refresh = box.reduce((arr, b) => {
+    if (expire(b.box)) arr.push(b.box)
+    return arr
+  }, [])
+
   for (const [index, item] of box.entries()) {
-    if (!item.latestUpdate || expire(item.latestUpdate)) {
-      const pro = `[${index + 1}/${box.length}]`
-      console.log(pro, item.box, item.homepage)
-      await sleep(3)
-      const { error, list } = await product(item.homepage)
+    if (!refresh.includes(item.box)) continue
 
-      error.forEach((err) => console.log('[error]', err))
+    const pro = `[${index + 1}/${box.length}]  ${item.box}`
+    console.log(pro, item.homepage)
+    await sleep(3)
+    const { error, list } = await product(item.homepage)
 
-      const info = {
-        category: 0,
-        files: 0,
-        homepageError: error.length,
-        downloaderError: 0
-      }
+    error.forEach((err) => console.log('[error]', err))
 
-      for (const category of list) {
-        info.category += 1
-        for (const target of category.link) {
-          console.log(`downloader ${target.href}`)
-          await sleep(3)
-          const { error, files } = await downloader(target.href)
-
-          error.forEach((err) => console.log('[error]', err))
-
-          if (error.length) {
-            target.files = []
-          } else {
-            target.files = files
-            // 1666695142524
-            item.latestUpdate = new Date().getTime()
-          }
-
-          info.files += files.length
-          info.downloaderError += error.length
-        }
-      }
-
-      const view = [
-        `Category: ${info.category} Files: ${info.files}`,
-        `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`,
-        '\n'
-      ]
-
-      console.log(view.join('\n'))
-
-      item.disk = list
+    const info = {
+      category: 0,
+      files: 0,
+      homepageError: error.length,
+      downloaderError: 0
     }
+
+    for (const category of list) {
+      info.category += 1
+      for (const target of category.link) {
+        console.log(pro, `downloader ${target.href}`)
+        // await sleep(3)
+        const { error, files } = await downloader(target.href)
+        error.forEach((err) => console.log('[error]', err))
+
+        if (error.length) {
+          target.files = []
+        } else {
+          target.files = files
+          // 1666695142524
+          item.latestUpdate = new Date().getTime()
+        }
+
+        info.files += files.length
+        info.downloaderError += error.length
+      }
+    }
+
+    const view = [
+      `Category: ${info.category} Files: ${info.files}`,
+      `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`,
+      '\n',
+      '\n'
+    ]
+
+    console.log(view.join('\n'))
+
+    item.disk = list
   }
   return box
 }
