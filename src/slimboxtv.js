@@ -22,8 +22,14 @@ export async function fetch(box) {
 
   let index = 1
 
-  for (const item of box) {
-    if (!refresh.includes(item.box)) continue
+  for (const [i, item] of box.entries()) {
+    if (refresh.length) {
+      if (refresh.includes(item.box) == false) {
+        continue
+      }
+    } else if (i > 20) {
+      continue
+    }
 
     const pro = `[${index++}/${refresh.length}]  ${item.box}`
     console.log(pro, item.homepage)

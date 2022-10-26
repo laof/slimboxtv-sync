@@ -16,6 +16,8 @@ export const box = list.reduce((arr, k) => {
   return arr
 }, [])
 
+box.sort((a, b) => a.latestUpdate - b.latestUpdate)
+
 // export const skip = mapping.filter((item) => !list.includes(item.box))
 
 function jsonf(file) {

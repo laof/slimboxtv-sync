@@ -73,7 +73,9 @@ export function table(list) {
   }
 
   const temp = readFileSync('view/README.md', 'utf-8')
-  return temp.replace('<!--files_table-->', arr.join('<br/>'))
+  temp = temp.replace('<!--last_date-->', formatShanghai())
+  temp = temp.replace('<!--files_table-->', arr.join('<br/>'))
+  return temp
 }
 
 export function formatShanghai(date = new Date()) {
