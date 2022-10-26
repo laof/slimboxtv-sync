@@ -16,71 +16,64 @@ export async function fetch(box) {
     return arr
   }, [])
 
-  if (!refresh.length) {
-    console.log('no data for refresh')
+  if (refresh.length == 0) {
+    console.log('no expire data')
+    box.forEach((o, i) => i < 20 && refresh.push(o.box))
   }
 
   let index = 1
-  const total = refresh.length || 20
-
-  for (const [i, item] of box.entries()) {
-    if (refresh.length) {
-      if (refresh.includes(item.box) == false) {
-        continue
-      }
-    } else if (i < total && box.length > total) {
-      // please run job ,thanks
-    } else {
-      continue
+  for (const item of box) {
+    if (refresh.includes(item.box)) {
+      const title = `[${index++}/${refresh.length}]  ${item.box}`
+      await homepage(title, item)
     }
-
-    const pro = `[${index++}/${total}]  ${item.box}`
-    console.log(pro, item.homepage)
-    // await sleep(3)
-    const { error, list } = await product(item.homepage)
-
-    error.forEach((err) => console.log('[error]', err))
-
-    const info = {
-      category: 0,
-      files: 0,
-      homepageError: error.length,
-      downloaderError: 0
-    }
-
-    for (const category of list) {
-      info.category += 1
-      for (const target of category.link) {
-        console.log(pro, `downloader ${target.href}`)
-        // await sleep(3)
-        const { error, files } = await downloader(target.href)
-        error.forEach((err) => console.log('[error]', err))
-
-        if (files.length) {
-          target.files = files
-          // 1666695142524
-          item.latestUpdate = new Date().getTime()
-        } else {
-          target.files = target.files || []
-        }
-
-        info.files += files.length
-        info.downloaderError += error.length
-      }
-    }
-
-    const view = [
-      `Category: ${info.category} Files: ${info.files}`,
-      `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`,
-      '\n',
-      '\n'
-    ]
-
-    console.log(view.join('\n'))
-
-    item.disk = list
   }
-  return box
+}
+
+export async function homepage(title, item) {
+  console.log(title, item.homepage)
+
+  // await sleep(3)
+  const { error, list } = await product(item.homepage)
+
+  error.forEach((err) => console.log('[error]', err))
+
+  const info = {
+    category: 0,
+    files: 0,
+    homepageError: error.length,
+    downloaderError: 0
+  }
+
+  for (const category of list) {
+    info.category += 1
+    for (const target of category.link) {
+      console.log(title, `downloader ${target.href}`)
+      // await sleep(3)
+      const { error, files } = await downloader(target.href)
+      error.forEach((err) => console.log('[error]', err))
+
+      if (files.length) {
+        target.files = files
+        // 1666695142524
+        item.latestUpdate = new Date().getTime()
+      } else {
+        target.files = target.files || []
+      }
+
+      info.files += files.length
+      info.downloaderError += error.length
+    }
+  }
+
+  const view = [
+    `Category: ${info.category} Files: ${info.files}`,
+    `Downloader error: ${info.downloaderError} Homepage error: ${info.homepageError}`
+  ]
+
+  console.log(view.join('\n'))
+
+  item.disk = list
 }
 
 export function sleep(ms = 1) {
