@@ -35,41 +35,41 @@ export function table(list) {
       return
     }
 
-    let ref = '--'
+    let date = ''
     if (data.latestUpdate) {
-      // const sh = shanghaiTimeZone(new Date(data.latestUpdate))
-      ref = formatShanghai(new Date(data.latestUpdate))
+      date = formatShanghai(new Date(data.latestUpdate))
     }
 
-    let item = [
-      `<tr><th colspan="4">${data.box}  (同步于 ${ref})</th></tr>`,
+    const body = [
+      `<tr><th colspan="4">${data.box}  (同步于 ${date})</th></tr>`,
       `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
     ]
 
     for (let category of data.disk) {
-      const { type } = category
-      for (let link of category.link) {
-        for (let file of link.files) {
+      const { type, link } = category
+      link.forEach(({ files }) => {
+        for (let [i, file] of files.entries()) {
           const { name, url, size, modified } = file
           const mb = (size / 1024 / 1024).toFixed(2) + 'M'
-
-          item.push(
+          body.push(
             [
-              `<tr><td>${type}</td>`,
+              '<tr>',
+              i ? '' : `<td rowspan="${files.length}">${type}</td>`,
               `<td><a href="https://laof.github.io/x96x4/#${url}">${name}</a></td>`,
               `<td>${mb}</td>`,
-              `<td>${modified}</td></tr>`
+              `<td>${modified}</td>`,
+              '</tr>'
             ].join('')
           )
         }
-      }
+      })
     }
 
-    arr.push(`<table>${item.join('')}</table>`)
+    arr.push(`<table>${body.join('')}</table>`)
   })
 
   if (!list.length) {
-    arr.push('Oh~ Sorry, Job Failed.')
+    arr.push('Oh~ Sorry, No data.')
   }
 
   let temp = readFileSync('view/README.md', 'utf-8')

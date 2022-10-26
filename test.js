@@ -1,4 +1,4 @@
 import { fetch } from './src/slimboxtv.js'
-import { table, box } from './src/helper.js'
+import { update, box } from './src/helper.js'
 
-console.log(box)
+console(box.length)
