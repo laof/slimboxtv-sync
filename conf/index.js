@@ -1,27 +1,23 @@
 import { readFileSync } from 'fs'
-import list from './box.js'
+import ks, { blacklist } from './keys.js'
 
-function jsonfile(file) {
-  return JSON.parse(readFileSync(file).toString())
-}
+export const data = jsonf('conf/data.json')
+export const table = jsonf('conf/table.json')
 
-export const data = jsonfile('conf/data.json')
-export const metadata = jsonfile('conf/metadata.json')
+const list = Array.from(new Set(ks)).filter((k) => !blacklist.includes(k))
 
-const old = data.filter((item) => list.includes(item.box))
-
-export const box = list.reduce((arr, name) => {
-  if (arr.find((item) => item.box == name)) {
-    return arr
-  }
-
-  const obj = metadata.find((item) => item.box == name)
+export const box = list.reduce((arr, k) => {
+  const obj = data.find((o) => o.box == k) || table.find((o) => o.box == k)
 
   if (obj) {
     arr.push(obj)
   }
 
   return arr
-}, old)
+}, [])
 
-// export const skip = metadata.filter((item) => !list.includes(item.box))
+// export const skip = mapping.filter((item) => !list.includes(item.box))
+
+function jsonf(file) {
+  return JSON.parse(readFileSync(file).toString())
+}

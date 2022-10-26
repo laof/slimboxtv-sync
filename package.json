@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "update": "node scripts/update.js --prod",
-    "dev": "node scripts/update.js",
-    "test": "node scripts/test.js"
+    "update": "node main.js --prod",
+    "dev": "node main.js",
+    "test": "node test.js"
   },
   "dependencies": {
     "puppeteer": "^19.1.0"

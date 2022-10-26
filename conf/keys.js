@@ -1,11 +1,10 @@
 export default [
+  'X96 X4',
   'Vontar X2',
   'X98 S500',
   'Vontar X4',
-  'X96 X4',
   'X98 mini',
   'Transpeed AV1',
-  'Tanix W2',
   'Tanix X4',
   'X96Max Plus Ultra',
   'Kingnovel X10 MAX',
@@ -82,3 +81,6 @@ export default [
   'Vosen V1',
   'Smart Box Z1'
 ]
+
+// export  default  ['X96 X4']
+export const blacklist = ['Tanix W2']

@@ -10,11 +10,15 @@ function expire(time) {
   }
 }
 
-export async function get(box) {
+export async function fetch(box) {
   const refresh = box.reduce((arr, b) => {
     if (expire(b.latestUpdate)) arr.push(b.box)
     return arr
   }, [])
+
+  if (!refresh.length) {
+    console.log('no data for refresh')
+  }
 
   let index = 1
 
