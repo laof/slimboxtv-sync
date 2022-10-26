@@ -3,8 +3,9 @@
   "type": "module",
   "scripts": {
     "update": "node main.js --prod",
-    "dev": "node main.js",
-    "test": "node test.js"
+    "fix": "node main.js --fix",
+    "dev": "node main.js --dev",
+    "test": "node test.js --dev"
   },
   "dependencies": {
     "puppeteer": "^19.1.0"

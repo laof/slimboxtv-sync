@@ -3,7 +3,9 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import { box } from '../conf/index.js'
 export * from '../conf/index.js'
 
-export const dev = process.argv[2] != '--prod'
+const flag = process.argv[2]
+export const dev = flag === '--dev'
+export const fix = flag === '--fix'
 
 const jsonfile = 'conf/data.json'
 
