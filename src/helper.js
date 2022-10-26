@@ -86,14 +86,14 @@ export function formatShanghai(date = new Date()) {
   })
 }
 
-export function shanghaiTimeZone(date = new Date()) {
-  if (dev) {
-    return new Date(date)
-  }
-  const currTimestamp = date.getTime()
-  const targetTimestamp = currTimestamp + 8 * 3600 * 1000
-  return new Date(targetTimestamp)
-}
+// export function shanghaiTimeZone(date = new Date()) {
+//   if (dev) {
+//     return new Date(date)
+//   }
+//   const currTimestamp = date.getTime()
+//   const targetTimestamp = currTimestamp + 8 * 3600 * 1000
+//   return new Date(targetTimestamp)
+// }
 
 export function fixTimezoneOffset(time = new Date()) {
   const date = new Date(time)
