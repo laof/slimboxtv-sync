@@ -12,14 +12,16 @@ function expire(time) {
 
 export async function get(box) {
   const refresh = box.reduce((arr, b) => {
-    if (expire(b.box)) arr.push(b.box)
+    if (expire(b.latestUpdate)) arr.push(b.box)
     return arr
   }, [])
 
-  for (const [index, item] of box.entries()) {
+  let index = 1
+
+  for (const item of box) {
     if (!refresh.includes(item.box)) continue
 
-    const pro = `[${index + 1}/${box.length}]  ${item.box}`
+    const pro = `[${index++}/${refresh.length}]  ${item.box}`
     console.log(pro, item.homepage)
     await sleep(3)
     const { error, list } = await product(item.homepage)
