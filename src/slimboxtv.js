@@ -66,7 +66,7 @@ export async function homepage(title, item) {
     }
   }
 
-  if (info.files.length) {
+  if (info.files) {
     item.disk = list
   }
 
