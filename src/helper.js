@@ -72,7 +72,7 @@ export function table(list) {
     arr.push('Oh~ Sorry, Job Failed.')
   }
 
-  const temp = readFileSync('view/README.md', 'utf-8')
+  let temp = readFileSync('view/README.md', 'utf-8')
   temp = temp.replace('<!--last_date-->', formatShanghai())
   temp = temp.replace('<!--files_table-->', arr.join('<br/>'))
   return temp

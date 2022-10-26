@@ -21,17 +21,20 @@ export async function fetch(box) {
   }
 
   let index = 1
+  const total = refresh.length || 20
 
   for (const [i, item] of box.entries()) {
     if (refresh.length) {
       if (refresh.includes(item.box) == false) {
         continue
       }
-    } else if (i > 20) {
+    } else if (i < total && box.length > total) {
+      // please run job ,thanks
+    } else {
       continue
     }
 
-    const pro = `[${index++}/${refresh.length}]  ${item.box}`
+    const pro = `[${index++}/${total}]  ${item.box}`
     console.log(pro, item.homepage)
     await sleep(3)
     const { error, list } = await product(item.homepage)
