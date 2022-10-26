@@ -36,7 +36,7 @@ export async function fetch(box) {
 
     const pro = `[${index++}/${total}]  ${item.box}`
     console.log(pro, item.homepage)
-    await sleep(3)
+    // await sleep(3)
     const { error, list } = await product(item.homepage)
 
     error.forEach((err) => console.log('[error]', err))
