@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 16
       - run: npm install
-      - run: node main.js --total=${{github.event.inputs.total}}  --name=${{github.event.inputs.name}}  --env=${{github.event.inputs.env}}
+      - run: node main.js --total=${{github.event.inputs.total}}  --name='${{github.event.inputs.name}}'  --env=${{github.event.inputs.env}}
  
       - uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
