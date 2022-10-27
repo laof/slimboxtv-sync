@@ -42,13 +42,19 @@ export function table(list) {
       date = formatShanghai(new Date(data.latestUpdate))
     }
 
-    const body = [
-      `<tr><th colspan="4">${data.box}  (同步于 ${date})</th></tr>`,
-      `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
-    ]
+    const firstType = data.disk[0].type
 
-    for (let category of data.disk) {
-      const { type, link } = category
+    const body = firstType
+      ? [
+          `<tr><th colspan="4">${data.box}  (同步于 ${date})</th></tr>`,
+          `<tr><th>型号</th><th>文件</th><th>大小</th><th>发布日期</th></tr>`
+        ]
+      : [
+          `<tr><th colspan="3">${data.box}  (同步于 ${date})</th></tr>`,
+          `<tr><th>文件</th><th>大小</th><th>发布日期</th></tr>`
+        ]
+
+    for (let { type, link } of data.disk) {
       link.forEach(({ files }) => {
         for (let [i, file] of files.entries()) {
           const { name, url, size, modified } = file
@@ -56,7 +62,11 @@ export function table(list) {
           body.push(
             [
               '<tr>',
-              i ? '' : `<td rowspan="${files.length}">${type}</td>`,
+              firstType
+                ? i
+                  ? ''
+                  : `<td rowspan="${files.length}">${type}</td>`
+                : '',
               `<td><a href="https://laof.github.io/x96x4/#${url}">${name}</a></td>`,
               `<td>${mb}</td>`,
               `<td>${modified}</td>`,
@@ -107,15 +117,15 @@ if (!existsSync('output')) {
 }
 
 // env dev test prod
-export const opts = { env: 'prod', total: 20, name: '' }
+export const opts = { mode: 'data', total: 20, name: '' }
 
 const inputs = process.argv.reduce((obj, str) => {
   if (str.startsWith('--')) {
-    let parmetter = str.replace('--', '')
-    parmetter = parmetter.split('=')
-    if (parmetter.length >= 2) {
-      const key = parmetter.shift()
-      let value = parmetter.join('')
+    let parameter = str.replace('--', '')
+    parameter = parameter.split('=')
+    if (parameter.length >= 2) {
+      const key = parameter.shift()
+      let value = parameter.join('')
 
       if (!value) {
         return obj

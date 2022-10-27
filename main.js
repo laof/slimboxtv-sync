@@ -3,13 +3,15 @@ import { update, box, opts } from './src/helper.js'
 
 console.log(opts)
 async function run() {
-  if (opts.name) {
+  if (opts.mode == 'style') {
+    console.log('style mode: skip fetch')
+  } else if (opts.name) {
     const exists = box.find((o) => o.box == opts.name)
     if (exists) await onlyone(box, opts.name)
-    return update(box)
+  } else {
+    await fetch(box, opts)
   }
 
-  await fetch(box, opts)
   update(box)
 }
 
