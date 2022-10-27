@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
     inputs:
-      logLevel:
+      name:
         description: 'Log level'
         required: true
         default: 'warning'
@@ -20,4 +20,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm run test
+      - run: npm run test --${{github.event.inputs.name}}
+      - run: echo "hello ${{github.event.inputs.name}}"
