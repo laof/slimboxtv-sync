@@ -15,29 +15,17 @@ on:
         type: boolean
         default: true
         description: 是否更新表
-      choice:
+      env:
         type: choice
-        description: 更新数据
-        default: '20'
+        description: 执行环境
+        default: 'prod'
         options:
-        - 10
-        - 20
-        - 30
-        - 50
-        - all
+        - dev
+        - prod
+        - local
 
 
 jobs:
-  on-success:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - run: echo 'The triggering workflow passed'
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The triggering workflow failed'
   build:
     name: test
     runs-on: ubuntu-latest
@@ -46,6 +34,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: node test.js --${{github.event.inputs.name}}
-      - run: npm run test --${{github.event.inputs.name}}
+      - run: node test.js --total${{github.event.inputs.total}}  --metadata${{github.event.inputs.metadata}}  --env${{github.event.inputs.env}}
       - run: echo "hello ${{github.event.inputs.name}}"
