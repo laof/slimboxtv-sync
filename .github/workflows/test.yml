@@ -7,25 +7,24 @@ on:
     types: [completed]
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Log level'
+      total:
+        description: '更新条数'
         required: true
-        default: 'warning'
-      environment:
-        type: environment
-        description: Select the script
-      boolean:
+        default: '20'
+      metadata:
         type: boolean
         default: true
-        description: True or False
+        description: 是否更新表
       choice:
         type: choice
-        description: Make a choice
-        default: 'foo'
+        description: 更新数据
+        default: '20'
         options:
-        - foo
-        - bar
-        - baz
+        - 10
+        - 20
+        - 30
+        - 50
+        - all
 
 
 jobs:

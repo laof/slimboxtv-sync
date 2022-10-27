@@ -4,4 +4,4 @@ console.log(box.length)
 
 console.log('inputs', process.argv[2])
 
-process.argv.forEach((t) => console.log(t))
+process.argv.forEach((t) => console.log('===', t))
