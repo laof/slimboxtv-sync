@@ -116,6 +116,11 @@ const inputs = process.argv.reduce((obj, str) => {
     if (parmetter.length >= 2) {
       const key = parmetter.shift()
       let value = parmetter.join('')
+
+      if (!value) {
+        return obj
+      }
+
       switch (key) {
         case 'total':
           value = Number(value) || box.length
