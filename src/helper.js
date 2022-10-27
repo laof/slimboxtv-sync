@@ -107,7 +107,7 @@ if (!existsSync('output')) {
 }
 
 // env dev test prod
-export const opts = { env: 'prod', total: 2, name: '' }
+export const opts = { env: 'prod', total: 20, name: '' }
 
 const inputs = process.argv.reduce((obj, str) => {
   if (str.startsWith('--')) {

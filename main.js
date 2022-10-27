@@ -1,6 +1,7 @@
 import { fetch, onlyone } from './src/slimboxtv.js'
 import { update, box, opts } from './src/helper.js'
 
+console.log(opts)
 async function run() {
   if (opts.name) {
     const exists = box.find((o) => o.box == opts.name)
