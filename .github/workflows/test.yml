@@ -20,5 +20,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - run: node test.js --${{github.event.inputs.name}}
       - run: npm run test --${{github.event.inputs.name}}
       - run: echo "hello ${{github.event.inputs.name}}"
