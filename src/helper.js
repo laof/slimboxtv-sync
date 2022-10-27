@@ -67,7 +67,7 @@ export function table(list) {
                   ? ''
                   : `<td rowspan="${files.length}">${type}</td>`
                 : '',
-              `<td><a href="https://laof.github.io/x96x4/#${url}">${name}</a></td>`,
+              `<td><a href="https://laof.github.io/downloader/#${url}">${name}</a></td>`,
               `<td>${mb}</td>`,
               `<td>${modified}</td>`,
               '</tr>'
