@@ -10,13 +10,19 @@ on:
         default: 'warning'
       environment:
         type: environment
-        description: Select the environment
+        description: Select the script
+        options:
+        - dev
+        - test
+        - prod
       boolean:
         type: boolean
+        default: true
         description: True or False
       choice:
         type: choice
         description: Make a choice
+        default: 'foo'
         options:
         - foo
         - bar
