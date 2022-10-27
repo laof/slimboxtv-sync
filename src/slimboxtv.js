@@ -11,22 +11,11 @@ function expire(time) {
 }
 
 export async function fetch(box) {
-  const refresh = box.reduce((arr, b) => {
-    if (expire(b.latestUpdate)) arr.push(b.box)
-    return arr
-  }, [])
-
-  if (refresh.length == 0) {
-    console.log('no expire data')
-    box.forEach((o, i) => i < 20 && refresh.push(o.box))
-  }
-
-  let index = 1
-  for (const item of box) {
-    if (refresh.includes(item.box)) {
-      const title = `[${index++}/${refresh.length}]  ${item.box}`
-      await homepage(title, item)
-    }
+  const max = 20
+  for (let [i, item] of box.entries()) {
+    if (i >= max) break
+    const title = `[${++i}/${max}]  ${item.box}`
+    await homepage(title, item)
   }
 }
 
