@@ -10,12 +10,21 @@ function expire(time) {
   }
 }
 
-export async function fetch(box) {
-  const max = 20
+export async function fetch(box, opts) {
+  let max = opts.total > box.length ? box.length : opts.total
   for (let [i, item] of box.entries()) {
     if (i >= max) break
     const title = `[${++i}/${max}]  ${item.box}`
     await homepage(title, item)
+  }
+}
+
+export async function onlyone(box, name) {
+  for (let item of box) {
+    if (name === item.box) {
+      const title = `[1/1]  ${item.box}`
+      await homepage(title, item)
+    }
   }
 }
 

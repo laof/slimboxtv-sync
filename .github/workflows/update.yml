@@ -5,6 +5,23 @@ on:
   schedule:
     - cron: '0 23 * * *'
     # 国际标准时间23点（北京时间+8，即早上7点）
+  workflow_dispatch:
+    inputs:
+      total:
+        description: '更新条数'
+        required: true
+        default: '20'
+      name:
+        description: '指定盒子'
+      env:
+        type: choice
+        description: 执行环境
+        default: 'prod'
+        options:
+        - dev
+        - test
+        - prod
+
 
 jobs:
   build:
@@ -17,7 +34,7 @@ jobs:
         with:
           node-version: 16
       - run: npm install
-      - run: npm run update
+      - run: node main.js --total${{github.event.inputs.total}}  --name${{github.event.inputs.name}}  --env${{github.event.inputs.env}}
  
       - uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:

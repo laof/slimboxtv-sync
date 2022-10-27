@@ -11,10 +11,6 @@ on:
         description: '更新条数'
         required: true
         default: '20'
-      metadata:
-        type: boolean
-        default: true
-        description: 是否更新表
       env:
         type: choice
         description: 执行环境

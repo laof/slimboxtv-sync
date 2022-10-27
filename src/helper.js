@@ -105,3 +105,28 @@ if (!existsSync('output')) {
   mkdirSync('output')
   mkdirSync('output/conf')
 }
+
+// env dev test prod
+export const opts = { env: 'prod', total: 2, name: '' }
+
+const inputs = process.argv.reduce((obj, str) => {
+  if (str.startsWith('--')) {
+    let parmetter = str.replace('--', '')
+    parmetter = parmetter.split('=')
+    if (parmetter.length >= 2) {
+      const key = parmetter.shift()
+      let value = parmetter.join('')
+      switch (key) {
+        case 'total':
+          value = Number(value) || box.length
+          break
+      }
+
+      obj[key] = value
+    }
+  }
+
+  return obj
+}, {})
+
+Object.assign(opts, inputs)

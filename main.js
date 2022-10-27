@@ -1,14 +1,20 @@
-import { fetch } from './src/slimboxtv.js'
-import { update, box, fix } from './src/helper.js'
+import { fetch, onlyone } from './src/slimboxtv.js'
+import { update, box, opts } from './src/helper.js'
 
-if (box.length) {
-  try {
-    await fetch(box)
-  } catch (e) {
-    console.log('job failed!!!')
-    console.log(e)
+async function run() {
+  if (opts.name) {
+    const exists = box.find((o) => o.box == opts.name)
+    if (exists) await onlyone(box, opts.name)
+    return update(box)
   }
+
+  await fetch(box, opts)
   update(box)
-} else {
-  console.log('no data')
+}
+
+try {
+  await run()
+} catch (e) {
+  console.log('job failed!!!')
+  console.log(e)
 }
