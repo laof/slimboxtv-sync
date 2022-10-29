@@ -24,7 +24,7 @@ export function cache() {
 }
 
 export function update(data) {
-  data.sort((a, b) => b.latestUpdate - a.latestUpdate)
+  // data.sort((a, b) => b.latestUpdate - a.latestUpdate)
   writeFileSync('output/README.md', table(data))
   writeFileSync('output/' + jsonfile, JSON.stringify(data))
 }

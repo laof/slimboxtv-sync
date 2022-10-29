@@ -1,11 +1,5 @@
 ### slimboxTV
 
-<!--files_table-->
-
-##### 关于
-
-每天与官网同步一次，始终处于最新版本，支持一键下载。
-
 ##### Last Date
 
 <!--last_date-->

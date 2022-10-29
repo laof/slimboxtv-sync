@@ -131,6 +131,16 @@ export async function product(url) {
 
   await page.goto(url)
 
+  try {
+    await page.waitForSelector('.su-tabs-pane-open li') //download target
+  } catch (err) {
+    try {
+      await browser.close()
+    } catch (e) {}
+
+    return { error: [err], list: [] }
+  }
+
   /** [{type:'Lan 1000',link:[{href:"http://disk.yandex.ru/x", name:'AOSP'}]}] */
   const data = await page.evaluate(async () => {
     const obj = { error: [], list: [] }
