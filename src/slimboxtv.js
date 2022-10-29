@@ -126,7 +126,7 @@ export async function slimboxtv() {
 export async function product(url) {
   const { page, browser } = await createBrowserContext()
 
-  /** product info page */
+  /** product info page  */
   // await page.setDefaultNavigationTimeout(0)
 
   await page.goto(url)
