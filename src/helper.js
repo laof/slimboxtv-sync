@@ -24,8 +24,17 @@ export function cache() {
 }
 
 export function update(data) {
-  // data.sort((a, b) => b.latestUpdate - a.latestUpdate)
-  writeFileSync('output/README.md', table(data))
+  data.sort((a, b) => b.latestUpdate - a.latestUpdate)
+
+  data.forEach((item) => {
+    if (item.latestUpdate) {
+      item.cd = '同步于：' + formatShanghai(new Date(item.latestUpdate))
+    } else {
+      item.cd = ''
+    }
+  })
+
+  // writeFileSync('output/README.md', table(data))
   writeFileSync('output/' + jsonfile, JSON.stringify(data))
 }
 

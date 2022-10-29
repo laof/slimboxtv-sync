@@ -1,9 +1,13 @@
-import { updateInfo } from './src/info.js'
+import { updateInfo, onlyone } from './src/info.js'
 import { update, box, opts } from './src/helper.js'
 
 console.log(opts)
 async function run() {
-  await updateInfo(box)
+  if (opts.name) {
+    await onlyone(box, opts)
+  } else {
+    await updateInfo(box, opts)
+  }
   update(box)
 }
 
