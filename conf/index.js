@@ -7,7 +7,7 @@ export const table = jsonf('conf/table.json')
 const list = Array.from(new Set(ks)).filter((k) => !blacklist.includes(k))
 
 export const box = list.reduce((arr, k) => {
-  const obj = table.find((o) => o.box == k)
+  const obj = data.find((o) => o.box == k) || table.find((o) => o.box == k)
 
   if (obj) {
     arr.push(obj)
