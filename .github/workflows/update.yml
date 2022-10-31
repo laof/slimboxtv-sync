@@ -18,7 +18,7 @@ jobs:
   build:
     name: update
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'update') || github.event.inputs.total"
+    if: "contains(github.event.head_commit.message, 'update') || github.event.inputs.total || github.event.schedule"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
