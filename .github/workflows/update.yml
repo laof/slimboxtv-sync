@@ -3,7 +3,7 @@ name: update
 on: 
   push:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 04 * * *'
     # 国际标准时间23点（北京时间+8，即早上7点）
   workflow_dispatch:
     inputs:
