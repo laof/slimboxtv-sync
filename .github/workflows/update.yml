@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'update') || github.event.inputs.total || github.event.schedule"
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - run: npm install
@@ -36,7 +36,7 @@ jobs:
           # clean-exclude: true
           commit-message: daily update
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: site
           path: output
@@ -48,10 +48,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Download Artifacts 🔻 # The built project is downloaded into the 'site' folder.
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: site
         path: output
