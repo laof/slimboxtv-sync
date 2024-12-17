@@ -49,7 +49,7 @@ func main() {
 		os.Mkdir(conf, 0700)
 	}
 
-	s := strings.ReplaceAll(string(body), "https://ghp.ci/", "https://nzv26-8080.csb.app/get?target=")
+	s := strings.ReplaceAll(string(body), "https://ghp.ci/http", "https://nzv26-8080.csb.app/get?target=http")
 
 	os.WriteFile(path.Join(conf, "ok.json"), []byte(s), 0700)
 
