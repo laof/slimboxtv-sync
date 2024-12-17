@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	res, err := http.Get("http://192.168.31.150:6200/test.json")
-	// res, err := http.Get("https://raw.githubusercontent.com/2hacc/TVBox/main/oktv.json")
+	// res, err := http.Get("http://192.168.31.150:6200/test.json")
+	res, err := http.Get("https://raw.githubusercontent.com/2hacc/TVBox/main/oktv.json")
 
 	if err != nil {
 		log.Fatalln("http error: " + err.Error())
