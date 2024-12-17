@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 )
 
 func main() {
@@ -48,6 +49,8 @@ func main() {
 		os.Mkdir(conf, 0700)
 	}
 
-	os.WriteFile(path.Join(conf, "ok.json"), body, 0700)
+	s := strings.ReplaceAll(string(body), "https://ghp.ci/", "https://nzv26-8080.csb.app/get?target=")
+
+	os.WriteFile(path.Join(conf, "ok.json"), []byte(s), 0700)
 
 }
