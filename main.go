@@ -9,8 +9,18 @@ import (
 )
 
 func main() {
+
+	res, err := http.Get("https://nzv26-8080.csb.app/get?target=https://laof.github.io/slimboxtv/conf/ok.json")
+
+	if err != nil {
+		log.Println("keep live error..")
+	} else {
+		log.Println("keep live successfully..")
+		defer res.Body.Close()
+	}
+
 	// res, err := http.Get("http://192.168.31.150:6200/test.json")
-	res, err := http.Get("https://raw.githubusercontent.com/2hacc/TVBox/main/oktv.json")
+	res, err = http.Get("https://raw.githubusercontent.com/2hacc/TVBox/main/oktv.json")
 
 	if err != nil {
 		log.Fatalln("http error: " + err.Error())
