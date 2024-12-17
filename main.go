@@ -25,7 +25,7 @@ func main() {
 		return
 	}
 
-	f := "conf/ok.json"
+	f := "output/ok.json"
 
 	os.WriteFile(f, body, 0644)
 
