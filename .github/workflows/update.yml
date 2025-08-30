@@ -13,6 +13,14 @@ on:
         default: '20'
       name:
         description: '指定盒子'
+      mode:
+        type: choice
+        description: 更新模式
+        default: 'data'
+        options:
+        - none
+        - style
+        - data
 
 jobs:
   build:
