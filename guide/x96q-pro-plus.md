@@ -10,7 +10,7 @@ GPU: Mali G57-MC1
 
 
 #####  提前准备
-刷机工具 PhoenixSuit1.0.7 https://phoenixsuit.updatestar.com/download
+刷机工具 PhoenixSuit https://phoenixsuit.updatestar.com/download
 固件下载ATV（VPN） https://slimboxtv.ru/x96q-pro-plus
 
 
